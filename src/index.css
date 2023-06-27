@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap");
+
+:root {
+  /* 
+    --background: #f7f8fd;
+    --secondary-button: #fbedfd;
+    --accent: #cd2ce2; */
+
+  --primary-button: #722ce2;
+  --secondary-button:#cd2ce2;
+  --text: #060b2d;
+  --background: #f1f4fd;
+}
+
+* {
+  margin: 0;
+  line-height: calc(1em+0.5rem);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  line-height: calc(1em+0.5rem);
+  color: var(--text);
+  background-color: var(--background);
+  font-family: "Jost", sans-serif;
+}
+
+p {
+  font-family: "Outfit", sans-serif;
+  font-weight: 600;
+}
+
+.btn {
+  width: fit-content;
+  border: none;
+  display: inline-block;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+}
+.button {
+  background-color: var(--primary-button);
+  color: var(--background);
+  padding: .7rem 2.5rem;
+  border-radius: 10px;
+  transition: all .3s ease;
+  text-align: center;
+}
+
+.button:hover {
+  box-shadow: 0px 10px 20px #b6b6b6;
+  background-color: var(--secondary-button);
+  scale: 1.1;
+}
+
+.button:active {
+  scale: .9;
+}
+
+
+@media screen and (min-width:1536px) {
+
+}
+
+@media screen and (max-width:1280px) {
+
+}
+
+@media screen and (max-width:1024px) {
+.button{
+  padding:.7rem 2rem;
+}
+
+}
+
+@media screen and (max-width:768px) {
+
+}
+
+@media screen and (max-width:640px) {
+
+}
+
+@media screen and (max-width:475px) {
+
+}
+
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  user-select: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+

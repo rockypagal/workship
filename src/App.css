@@ -1,0 +1,47 @@
+
+.Wrapper {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: .5rem;
+    padding-right: .5rem;
+
+}
+
+
+
+@media screen and (min-width:1536px) {
+    .Wrapper {
+        max-width: 1280px;
+    }
+}
+
+@media screen and (max-width:1280px) {
+    .Wrapper {
+        max-width: 1024px;
+    }
+}
+
+@media screen and (max-width:1024px) {
+    .Wrapper {
+        max-width: 768px;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .Wrapper {
+        max-width: 640px;
+    }
+}
+
+@media screen and (max-width:640px) {
+    .Wrapper {
+        max-width: 475px;
+    }
+}
+
+@media screen and (max-width:475px) {
+    .Wrapper {
+        width: 100%;
+    }
+}
