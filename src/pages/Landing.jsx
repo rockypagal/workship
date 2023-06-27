@@ -153,7 +153,7 @@ const Wrapper = styled.main`
     height: auto;
 
     .landing__content-left {
-      gap: 20px;
+      gap: 30px;
     }
 
     .landing__content-left h1 {
@@ -179,6 +179,7 @@ const Wrapper = styled.main`
     .landing__content-btn{
       width: 30%;
       margin:auto ;
+      margin-top: 30px;
   }
 
   @media screen and (max-width: 475px) {
