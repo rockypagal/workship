@@ -22,6 +22,9 @@ const Wrapper = styled.main`
     padding-right: 0.5rem;
   }
 
+  .smallBall{
+    display: none;
+  }
   h1 {
     text-transform: uppercase;
   }
@@ -167,10 +170,14 @@ const Wrapper = styled.main`
   @media screen and (max-width: 640px) {
     .Wrapper {
       max-width: 475px;
+      padding-left: 0;
+      padding-right: 0;
     }
-
+.smallBall{
+  display: block;
+}
     .lading__content-right img {
-      padding-right: 1rem;
+      width: 98%;
     }
  .landing__content-left h1,.landing__content-left p{
       padding:0 1.5rem;
@@ -199,6 +206,7 @@ const Landing = () => {
           <div className="landing__balls">
             <Ball width="200px" height="200px" top="-70px" left="460px" />
             <Ball width="400px" height="400px" right="169px" top="200px" />
+          <span className="smallBall"><Ball width="200px" height="200px" right="-90px" top="700px" /></span>  
           </div>
 
           <div className="landing__logo Wrapper">
