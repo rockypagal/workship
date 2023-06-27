@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import logo from "../assets/logos/main_logo.png";
 import landing_img from "../assets/svg/landing_img.svg";
@@ -21,8 +21,6 @@ const Wrapper = styled.main`
     padding-left: 0.5rem;
     padding-right: 0.5rem;
   }
-
-
 
   h1 {
     text-transform: uppercase;
@@ -119,8 +117,6 @@ const Wrapper = styled.main`
     .Wrapper {
       max-width: 1024px;
     }
-
-        
   }
 
   @media screen and (max-width: 1024px) {
@@ -139,21 +135,15 @@ const Wrapper = styled.main`
   @media screen and (max-width: 768px) {
     .Wrapper {
       max-width: 640px;
+      padding-top: 0;
     }
 
-        .landing__logo img {
+    .landing__logo img {
       width: 130px;
     }
 
     .landing__content {
-      padding: 5rem 0rem;
-      flex-direction: column-reverse;
-      justify-content: center;
-      align-items: space-between;
-      gap: 50px;
-    }
-    .landing__content {
-      padding: 5rem 0rem;
+      padding-bottom: 3rem;
       flex-direction: column-reverse;
       justify-content: center;
       align-items: space-between;
@@ -162,9 +152,9 @@ const Wrapper = styled.main`
 
     height: auto;
 
-.landing__content-left{
-  gap:20px;
-}
+    .landing__content-left {
+      gap: 20px;
+    }
 
     .landing__content-left h1 {
       font-size: 2.5rem;
@@ -172,35 +162,37 @@ const Wrapper = styled.main`
       padding: 0;
       margin: 0;
     }
-
   }
 
   @media screen and (max-width: 640px) {
     .Wrapper {
       max-width: 475px;
     }
-    
-  .landing__content-left p,.lading__content-right img {
-    padding-right:1rem;
-  }
- 
+
+    .lading__content-right img {
+      padding-right: 1rem;
+    }
+ .landing__content-left h1,.landing__content-left p{
+      padding:0 1.5rem;
+    }
+
+    .landing__content-btn{
+      width: 30%;
+      margin:auto ;
   }
 
   @media screen and (max-width: 475px) {
     .Wrapper {
       width: 100%;
     }
-
-   
+  }
+  
   }
 `;
 const Landing = () => {
-
-
-
   return (
     <Wrapper>
-      <div className="landing__blur"/>
+      <div className="landing__blur" />
       <div className="Wrapper">
         <div className="landing">
           <div className="landing__balls">
