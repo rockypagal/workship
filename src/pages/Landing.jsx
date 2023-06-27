@@ -119,6 +119,8 @@ const Wrapper = styled.main`
     .Wrapper {
       max-width: 1024px;
     }
+
+        
   }
 
   @media screen and (max-width: 1024px) {
@@ -137,6 +139,10 @@ const Wrapper = styled.main`
   @media screen and (max-width: 768px) {
     .Wrapper {
       max-width: 640px;
+    }
+
+        .landing__logo img {
+      width: 130px;
     }
 
     .landing__content {
@@ -173,12 +179,19 @@ const Wrapper = styled.main`
     .Wrapper {
       max-width: 475px;
     }
+    
+  .landing__content-left p,.lading__content-right img {
+    padding-right:1rem;
+  }
+ 
   }
 
   @media screen and (max-width: 475px) {
     .Wrapper {
       width: 100%;
     }
+
+   
   }
 `;
 const Landing = () => {
