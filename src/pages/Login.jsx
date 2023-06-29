@@ -247,6 +247,12 @@ const Login = () => {
                 >
                   {isMember ? "Register" : "Login"}
                 </button>
+                <button
+                  type="button"
+                  className="btn"
+                  onClick={() => dispatch(loginUser({email:'testUser@test.com',password:'secret'}))}
+                >/ Demo
+                </button>
               </div>
             </form>
           </div>

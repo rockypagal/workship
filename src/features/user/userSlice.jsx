@@ -7,6 +7,8 @@ import {
 } from "../../utils/localStorage";
 import { toast } from "react-toastify";
 
+
+
 export const RegisterUser = createAsyncThunk(
   "register/user",
   async (formInfo, thunkApi) => {
@@ -19,6 +21,7 @@ export const RegisterUser = createAsyncThunk(
     }
   }
 );
+
 
 export const loginUser = createAsyncThunk(
   "login/User",
