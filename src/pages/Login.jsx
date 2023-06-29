@@ -245,13 +245,16 @@ const Login = () => {
                   className="btn"
                   onClick={() => dispatch(checkIsMember())}
                 >
-                  {isMember ? "Register" : "Login"}
+                  {isMember ? "Register " : "Login "}
+                   or
                 </button>
                 <button
                   type="button"
                   className="btn"
-                  onClick={() => dispatch(loginUser({email:'testUser@test.com',password:'secret'}))}
-                >/ Demo
+                  style={{color:'#722ce2',margin:'0px',padding:'0px'}}
+                  onClick={() => dispatch(loginUser({email:'testUser@test.com',password:'secret'}))
+                  }
+                >Demo
                 </button>
               </div>
             </form>
