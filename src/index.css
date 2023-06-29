@@ -10,7 +10,7 @@
   --primary-button: #722ce2;
   --secondary-button:#cd2ce2;
   --text: #060b2d;
-  --background: #f1f4fd;
+  --background: #e8e8fd;
 }
 
 * {
@@ -54,7 +54,7 @@ p {
 .button:hover {
   box-shadow: 0px 10px 20px #b6b6b6;
   background-color: var(--secondary-button);
-  scale: 1.1;
+  scale: 1.06;
 }
 
 .button:active {
@@ -89,6 +89,14 @@ p {
 
 }
 
+.login_main{
+position: relative;
+width:100vw;
+height: 100vh;
+overflow: hidden;
+}
+
+
 
 img,
 picture,
@@ -108,3 +116,11 @@ li {
   list-style: none;
 }
 
+.blur {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.3);
+  z-index: -1;
+  backdrop-filter: blur(4rem);
+}

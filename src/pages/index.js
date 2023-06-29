@@ -7,8 +7,9 @@ import Dashboard from "./Dashboard";
 import Error from "./Error";
 import Profile from "./Profile";
 import AddJob from "./AddJob";
-
+import ProtectedRoute from './ProtectedRoute';
 export {
+  ProtectedRoute,
   SharedLayout,
   Landing,
   Login,

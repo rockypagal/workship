@@ -41,14 +41,6 @@ const Wrapper = styled.main`
 
   } */
 
-  .landing__blur {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    background-color: rgba(255, 255, 255, 0.3);
-    z-index: -1;
-    backdrop-filter: blur(4rem);
-  }
 
   .landing__logo {
     display: flex;
@@ -200,7 +192,7 @@ const Wrapper = styled.main`
 const Landing = () => {
   return (
     <Wrapper>
-      <div className="landing__blur" />
+      <div className="blur" />
       <div className="Wrapper">
         <div className="landing">
           <div className="landing__balls">

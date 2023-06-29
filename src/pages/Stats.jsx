@@ -1,9 +1,18 @@
-import React from 'react'
+import React from "react";
+import { useDispatch } from "react-redux";
+import { logOut } from "../features/user/userSlice";
 
 const Stats = () => {
-  return (
-    <div>Stats</div>
-  )
-}
+  const dispatch = useDispatch()
 
-export default Stats
+  return (
+    <div>
+      Stats
+      <button type="button" onClick={() => dispatch(logOut())}>
+        logout
+      </button>
+    </div>
+  );
+};
+
+export default Stats;

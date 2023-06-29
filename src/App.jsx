@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "normalize.css";
 import GlobalStyle from "./utils/GlobalStyles";
-import './App.css'
+import "./App.css";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -14,6 +14,7 @@ import {
   Profile,
   SharedLayout,
   Stats,
+  ProtectedRoute
 } from "./pages/";
 
 function App() {
@@ -23,13 +24,20 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="dashboard" element={<SharedLayout />}>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <SharedLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<Stats />} />
           <Route path="all-jobs" element={<AllJobs />} />
           <Route path="add-job" element={<AddJob />} />
           <Route path="profile" element={<Profile />} />
         </Route>
-        <Route path="/" element={<Landing />} />
+        <Route path="landing" element={<Landing />} />
         <Route path="register" element={<Login />} />
         <Route path="*" element={<Error />} />
       </Routes>
