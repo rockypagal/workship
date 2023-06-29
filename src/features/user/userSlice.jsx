@@ -42,7 +42,7 @@ const userSlice = createSlice({
     ...userLocalData,
     isLoading: false,
     isMember: false,
-    isUser: false,
+    isUser: getUserFromStorage(),
   },
   reducers: {
     logOut: (state) => {
