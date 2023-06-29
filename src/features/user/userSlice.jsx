@@ -26,23 +26,20 @@ export const loginUser = createAsyncThunk(
     try {
       const res = await FetchData.post("/auth/login", formData);
       const data = res.data.user;
-      console.log(data,' loginUser');
       return data;
     } catch (error) {
-      console.log(error);
       return thunkApi.rejectWithValue(error.response.data.msg);
     }
   }
 );
 const userLocalData = getUserFromStorage();
-console.log({ ...userLocalData });
 const userSlice = createSlice({
   name: "user",
   initialState: {
     ...userLocalData,
     isLoading: false,
     isMember: false,
-    isUser: getUserFromStorage(),
+    isUser: userLocalData? true: false,
   },
   reducers: {
     logOut: (state) => {
@@ -73,7 +70,6 @@ const userSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(loginUser.fulfilled, (state, {payload}) => {
-        console.log(payload,' extra');
         state.isLoading = false;
         setUserInStorage(payload);
         state.isUser = true;

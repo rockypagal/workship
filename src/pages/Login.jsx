@@ -156,7 +156,6 @@ const Login = () => {
     if (isUser) {
       navigate("/");
     }
-    console.log("hello");
   }, [isUser]);
 
   const formData = (e) => {
@@ -164,6 +163,7 @@ const Login = () => {
     const value = e.target.value;
     setUserData({ ...userData, [name]: value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, email, password } = userData;
@@ -179,6 +179,7 @@ const Login = () => {
 
     dispatch(RegisterUser(userData));
   };
+
   return (
     <div className="login_main">
       <Ball
