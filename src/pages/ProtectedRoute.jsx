@@ -8,7 +8,7 @@ const {isUser} = useSelector(store=>store.user)
 
 useEffect(()=>{
   if(!isUser){
-    navigate('/register')
+    navigate('/landing')
     return
   }
 })
