@@ -235,7 +235,7 @@ const Login = () => {
                 className="btn button from-btn"
                 disabled={isLoading}
               >
-                {isLoading ? "Loading" : "Submit"}
+                {isLoading ? "Loading..." : "Submit"}
               </button>
               <div className="confirm__text">
                 <p>{isMember ? "Not a member yet?" : "Already a member?"}</p>
