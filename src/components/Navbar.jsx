@@ -68,13 +68,19 @@ const Wrapper = styled.main`
     font-weight: 500;
     font-size: 20px;
     background: transparent;
-    border: 2px solid var(--primary-button);
-    border: 2px solid black;
+    border: 2px solid var(--secondary-button);
     padding: 2px 10px;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s;
   }
+
+
+  .logoutBtn:hover {
+    color: var(--primary-button);
+  }
+
+
 
   @media (max-width: 768px) {
     .menu {
