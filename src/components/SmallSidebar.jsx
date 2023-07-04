@@ -4,6 +4,10 @@ const Wrapper = styled.main`
   position: fixed;
   left: 0;
   bottom:0;
+  display:none;
+  @media (max-width:768px){
+    display:block;
+  }
 `;
 
 const SmallSidebar = () => {

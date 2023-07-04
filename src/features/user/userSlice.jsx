@@ -7,8 +7,6 @@ import {
 } from "../../utils/localStorage";
 import { toast } from "react-toastify";
 
-
-
 export const RegisterUser = createAsyncThunk(
   "register/user",
   async (formInfo, thunkApi) => {
@@ -21,7 +19,6 @@ export const RegisterUser = createAsyncThunk(
     }
   }
 );
-
 
 export const loginUser = createAsyncThunk(
   "login/User",
@@ -42,7 +39,7 @@ const userSlice = createSlice({
     ...userLocalData,
     isLoading: false,
     isMember: false,
-    isUser: userLocalData? true: false,
+    isUser: userLocalData ? true : false,
     isSidebarOpen: true,
     navWidth: "auto",
   },
@@ -51,15 +48,15 @@ const userSlice = createSlice({
       state.isUser = false;
       logOutUser();
     },
-    checkIsMember:(state) => {
+    checkIsMember: (state) => {
       state.isMember = !state.isMember;
     },
     manageSidebar: (state) => {
       state.isSidebarOpen = !state.isSidebarOpen;
     },
-    changeNavSize:(state,{payload})=>{
-     state.navWidth = state.isSidebarOpen? payload - 270 : payload - 100;
-    }
+    changeNavSize: (state, { payload }) => {
+      state.navWidth = state.isSidebarOpen ? payload - 270 : payload - 100;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -71,6 +68,11 @@ const userSlice = createSlice({
         state.isLoading = false;
         setUserInStorage(payload);
         state.isUser = true;
+        state.name = payload.name;
+        state.email = payload.email;
+        state.lastName = payload.lastName;
+        state.token = payload.token;
+        state.location = payload.location;
         toast.success(`Welcome ${payload.name}`);
       })
       .addCase(RegisterUser.rejected, (state, { payload }) => {
@@ -80,18 +82,26 @@ const userSlice = createSlice({
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(loginUser.fulfilled, (state, {payload}) => {
+      .addCase(loginUser.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         setUserInStorage(payload);
         state.isUser = true;
+        state.name = payload.name;
+        state.email = payload.email;
+        state.lastName = payload.lastName;
+        state.token = payload.token;
+        state.location = payload.location;
+        console.log(payload);
         toast.success(`Welcome ${payload.name}`);
-      }).addCase(loginUser.rejected, (state, {payload}) => {
+      })
+      .addCase(loginUser.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);
       });
   },
 });
 
-export const { logOut,checkIsMember,manageSidebar,changeNavSize } = userSlice.actions;
+export const { logOut, checkIsMember, manageSidebar, changeNavSize } =
+  userSlice.actions;
 
 export default userSlice.reducer;
