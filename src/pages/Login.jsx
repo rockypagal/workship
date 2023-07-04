@@ -246,7 +246,7 @@ const Login = () => {
                   onClick={() => dispatch(checkIsMember())}
                 >
                   {isMember ? "Register " : "Login "}
-                   or
+                   <span style={{color:'black'}}>or</span>
                 </button>
                 <button
                   type="button"

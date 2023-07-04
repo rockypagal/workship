@@ -1,9 +1,18 @@
-import React from 'react'
+import React from "react";
+import styled from "styled-components";
+const Wrapper = styled.main`
+  position: fixed;
+  left: 0;
+  bottom:0;
+`;
 
 const SmallSidebar = () => {
-  return (
-    <div>SmallSidebar</div>
-  )
-}
+  return <Wrapper>
 
-export default SmallSidebar
+    <div className="main">
+      <h2>footer</h2>
+    </div>
+  </Wrapper>;
+};
+
+export default SmallSidebar;

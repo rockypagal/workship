@@ -7,7 +7,6 @@ const Stats = () => {
 
   return (
     <div>
-      Stats
       <button type="button" onClick={() => dispatch(logOut())}>
         logout
       </button>

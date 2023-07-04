@@ -43,6 +43,8 @@ const userSlice = createSlice({
     isLoading: false,
     isMember: false,
     isUser: userLocalData? true: false,
+    isSidebarOpen: true,
+    navWidth: "auto",
   },
   reducers: {
     logOut: (state) => {
@@ -51,6 +53,12 @@ const userSlice = createSlice({
     },
     checkIsMember:(state) => {
       state.isMember = !state.isMember;
+    },
+    manageSidebar: (state) => {
+      state.isSidebarOpen = !state.isSidebarOpen;
+    },
+    changeNavSize:(state,{payload})=>{
+     state.navWidth = state.isSidebarOpen? payload - 270 : payload - 100;
     }
   },
   extraReducers: (builder) => {
@@ -84,6 +92,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { logOut,checkIsMember } = userSlice.actions;
+export const { logOut,checkIsMember,manageSidebar,changeNavSize } = userSlice.actions;
 
 export default userSlice.reducer;
