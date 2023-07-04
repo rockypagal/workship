@@ -30,8 +30,10 @@ const Wrapper = styled.main`
 
   .title {
     font-size: 25px;
-  }
+    
 
+  }
+  
   .menu {
     color: var(--text);
     font-size: 25px;
@@ -39,6 +41,10 @@ const Wrapper = styled.main`
   }
   h2 {
     padding-left: 15px;
+  }
+
+  .capital{
+    text-transform: capitalize;
   }
 
   .user {
@@ -145,7 +151,7 @@ const Navbar = () => {
 
           <div className="user" onClick={() => setShowLogout(!showLogout)}>
             <FiUser />
-            <p>{name}</p>
+            <p className="capital">{name}</p>
             <BsCaretDown style={{ marginTop: "5px" }} />
           </div>
 
