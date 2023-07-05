@@ -20,6 +20,10 @@ const Wrapper = styled.main`
     border-radius: 5px;
     border: 1px solid #722ce2;
   }
+  label{
+    font-size: 18px;
+    font-weight: 500;
+  }
 
   .formInput input:focus {
     outline: 1px solid var(--secondary-button);

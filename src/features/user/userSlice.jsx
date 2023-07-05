@@ -32,6 +32,19 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
+
+export const updateUser = createAsyncThunk(
+  "update/User",
+  async (formData, thunkApi) => {
+    try {
+      const res = await FetchData.patch("/auth/updateUser", formData);
+      return res.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.response.data.msg);
+    }
+  }
+);
+
 const userLocalData = getUserFromStorage();
 const userSlice = createSlice({
   name: "user",
@@ -95,6 +108,24 @@ const userSlice = createSlice({
         toast.success(`Welcome ${payload.name}`);
       })
       .addCase(loginUser.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(payload);
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        let {user} = payload
+        setUserInStorage(user);
+        state.name = user.name;
+        state.email = user.email;
+        state.lastName = user.lastName;
+        state.token = user.token;
+        state.location = user.location;
+        console.log(payload.user);
+        toast.success('User updated successfully')
+      }).addCase(updateUser.rejected, (state,payload) => {
         state.isLoading = false;
         toast.error(payload);
       });

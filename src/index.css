@@ -28,6 +28,7 @@ body {
   background-color: var(--background);
   font-family: "Jost", sans-serif;
     background-color: rgba(206, 206, 254, 0.5);
+  /* background-color: rgba(177, 139, 202, 0.336); */
 }
 
 p {
