@@ -114,6 +114,7 @@ const Wrapper = styled.main`
 
   .backBall {
     z-index: -4;
+    position: fixed;
   }
 `;
 
