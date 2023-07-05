@@ -118,6 +118,14 @@ li {
   list-style: none;
 }
 
+.clickEffect{
+  transition: all .3s;
+}
+
+.clickEffect:active{
+  scale:.9;
+}
+
 .blur {
   width: 100vw;
   height: 100vh;

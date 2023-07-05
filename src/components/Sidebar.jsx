@@ -77,10 +77,20 @@ const Wrapper = styled.main`
     color: var(--secondary-button);
     padding-left: 15px;
   }
+  
+  li:active {
+    /* padding-left: 25px; */
+    scale: .9;
+  }
+
   .hide-sidebar li:hover {
     justify-content: center;
     padding-left: 0;
     scale: calc(1.2);
+  } 
+  
+   .hide-sidebar li:active {
+    scale: .9;
   }
   span {
     width: 100%;

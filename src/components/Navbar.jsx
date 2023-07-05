@@ -8,9 +8,11 @@ import {
   logOut,
 } from "../features/user/userSlice";
 import { CgMenu } from "react-icons/cg";
-import { CiUser } from "react-icons/ci";
+// import { CiUser } from "react-icons/ci";
 import { FiUser } from "react-icons/fi";
 import { BsCaretDown } from "react-icons/bs";
+import { motion } from "framer-motion";
+
 const Wrapper = styled.main`
   /* box-shadow:0px 0px 50px #8084b8; */
   background-color: rgba(206, 206, 254, 0.6);
@@ -30,10 +32,8 @@ const Wrapper = styled.main`
 
   .title {
     font-size: 25px;
-    
-
   }
-  
+
   .menu {
     color: var(--text);
     font-size: 25px;
@@ -43,7 +43,7 @@ const Wrapper = styled.main`
     padding-left: 15px;
   }
 
-  .capital{
+  .capital {
     text-transform: capitalize;
   }
 
@@ -60,16 +60,13 @@ const Wrapper = styled.main`
     cursor: pointer;
     transition: all 0.3s;
     border: 2px solid var(--primary-button);
-   
   }
   .user:hover {
-     color: var(--secondary-button);
+    color: var(--secondary-button);
   }
 
   .logoutBtn {
     position: absolute;
-    right: 50px;
-    top: 85px;
     color: black;
     font-weight: 500;
     font-size: 20px;
@@ -78,15 +75,12 @@ const Wrapper = styled.main`
     padding: 2px 10px;
     border-radius: 6px;
     cursor: pointer;
-    transition: all 0.3s;
+    z-index: -2;
   }
-
 
   .logoutBtn:hover {
     color: var(--primary-button);
   }
-
-
 
   @media (max-width: 768px) {
     .menu {
@@ -144,25 +138,43 @@ const Navbar = () => {
       <Ball width="200px" height="200px" top="-100px" />
       <Wrapper>
         <div className=" nav">
-          <button className="btn menu" onClick={menuBar}>
+          <button className="btn menu clickEffect" onClick={menuBar}>
             <CgMenu />
           </button>
           <p className="title">Dashboard</p>
 
-          <div className="user" onClick={() => setShowLogout(!showLogout)}>
+          <div
+            className="user clickEffect"
+            onClick={() => setShowLogout(!showLogout)}
+          >
             <FiUser />
             <p className="capital">{name}</p>
             <BsCaretDown style={{ marginTop: "5px" }} />
           </div>
 
-          {showLogout && (
-            <button
-              className=" btn logoutBtn"
-              onClick={() => dispatch(logOut())}
-            >
-              Logout
-            </button>
-          )}
+          <motion.button
+            animate={{
+              right: showLogout? 50: -200,
+              top:showLogout? 85: 85,
+              opacity: showLogout? 1:0
+            }}
+            initial={{
+              top:-200,
+              right: 50,
+              opacity: 0,
+            }}
+            transition={{
+              type:'spring',
+              stiffness:130
+            }}
+            whileTap={{
+              scale:.9
+            }}
+            className=" btn logoutBtn  "
+            onClick={() => dispatch(logOut())}
+          >
+            Logout
+          </motion.button>
         </div>
       </Wrapper>
     </Nav>
