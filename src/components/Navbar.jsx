@@ -123,6 +123,8 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+    
+
     window.addEventListener("resize", checkSize);
     return () => {
       window.removeEventListener("resize", checkSize);
@@ -131,11 +133,11 @@ const Navbar = () => {
 
   useEffect(() => {
     dispatch(changeNavSize(width));
-  }, []);
+  }, [width]);
 
   return (
     <Nav width={`${width >= 786 ? navWidth : null}`}>
-      <Ball width="200px" height="200px" top="-100px" />
+      <Ball width="200px" height="200px" top="-140px" />
       <Wrapper>
         <div className=" nav">
           <button className="btn menu clickEffect" onClick={menuBar}>

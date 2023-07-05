@@ -10,7 +10,6 @@ display: flex;
 display: none;
 }
 
-
 .dashboard_content{
   width:90vw;
   margin:0 auto;

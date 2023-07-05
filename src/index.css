@@ -27,6 +27,7 @@ body {
   color: var(--text);
   background-color: var(--background);
   font-family: "Jost", sans-serif;
+    background-color: rgba(206, 206, 254, 0.5);
 }
 
 p {
@@ -133,4 +134,7 @@ li {
   background-color: rgba(255, 255, 255, 0.3);
   z-index: -1;
   backdrop-filter: blur(4rem);
+}
+::-webkit-scrollbar {
+  display: none;
 }
