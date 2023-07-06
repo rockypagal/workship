@@ -67,20 +67,16 @@ const Wrapper = styled.main`
 
   .logoutBtn {
     position: absolute;
-    color: black;
+    /* color: black; */
     font-weight: 500;
     font-size: 20px;
-    background: transparent;
-    border: 2px solid var(--secondary-button);
-    padding: 2px 10px;
+    background: var(--primary-button);
+    padding: 7px 20px;
     border-radius: 6px;
     cursor: pointer;
     z-index: -2;
   }
 
-  .logoutBtn:hover {
-    color: var(--primary-button);
-  }
 
   @media (max-width: 768px) {
     .menu {
@@ -156,7 +152,7 @@ const Navbar = () => {
 
           <motion.button
             animate={{
-              right: showLogout? 50: -200,
+              right: showLogout? 30: -200,
               top:showLogout? 85: 85,
               opacity: showLogout? 1:0
             }}

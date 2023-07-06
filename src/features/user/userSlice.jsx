@@ -125,7 +125,7 @@ const userSlice = createSlice({
         state.location = user.location;
         console.log(payload.user);
         toast.success('User updated successfully')
-      }).addCase(updateUser.rejected, (state,payload) => {
+      }).addCase(updateUser.rejected, (state,{payload}) => {
         state.isLoading = false;
         toast.error(payload);
       });
