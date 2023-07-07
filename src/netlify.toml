@@ -1,4 +1,0 @@
-[[redirect]]
-from = "/*"
-to="/Landing.jsx"
-status = 200
