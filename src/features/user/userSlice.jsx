@@ -11,7 +11,7 @@ export const RegisterUser = createAsyncThunk(
   "register/user",
   async (formInfo, thunkApi) => {
     try {
-      const res = await FetchData.post("/auth/testingRegister", formInfo);
+      const res = await FetchData.post("/auth/register", formInfo);
       const data = res.data.user;
       return data;
     } catch (error) {
