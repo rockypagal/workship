@@ -147,9 +147,9 @@ const Wrapper = styled.main`
       margin:0px auto;
     }
 
-    .size{
-      font-size: 13px;
-    }
+  .size{
+    font-size: 14px;
+  }
   }
 `;
 
@@ -248,16 +248,16 @@ const Login = () => {
 
               <button
                 type="submit"
-                className="btn button from-btn"
+                className="btn button from-btn size"
                 disabled={isLoading}
               >
                 {isLoading ? "Loading..." : "Submit"}
               </button>
-              <div className="confirm__text size">
-                <p>{isMember ? "Not a member yet?" : "Already a member?"}</p>
+              <div className="confirm__text">
+                <p className="size">{isMember ? "Not a member yet?" : "Already a member?"}</p>
                 <button
-                  type="button size"
-                  className="btn"
+                  type="button"
+                  className="btn size"
                   onClick={() => dispatch(checkIsMember())}
                 >
                   {isMember ? "Register " : "Login "}
