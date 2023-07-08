@@ -113,6 +113,17 @@ const Wrapper = styled.main`
       align-items: center;
       margin-top: 15px;
     }
+    .from-btn {
+      width: 100%;
+      margin: auto;
+      display: block;
+      margin-top: 10px;
+      transition: all .2s;
+    }
+    .from-btn:active {
+      background-color:var(--secondary-button);
+  scale: .9;
+    }
   }
 
   @media screen and (max-width: 768px) {
@@ -246,15 +257,22 @@ const Login = () => {
                   onClick={() => dispatch(checkIsMember())}
                 >
                   {isMember ? "Register " : "Login "}
-                   <span style={{color:'black'}}>or</span>
+                  <span style={{ color: "black" }}>or</span>
                 </button>
                 <button
                   type="button"
                   className="btn"
-                  style={{color:'#722ce2',margin:'0px',padding:'0px'}}
-                  onClick={() => dispatch(loginUser({email:'testUser@test.com',password:'secret'}))
+                  style={{ color: "#722ce2", margin: "0px", padding: "0px" }}
+                  onClick={() =>
+                    dispatch(
+                      loginUser({
+                        email: "testUser@test.com",
+                        password: "secret",
+                      })
+                    )
                   }
-                >Demo
+                >
+                  Demo
                 </button>
               </div>
             </form>
