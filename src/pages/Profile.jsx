@@ -5,7 +5,7 @@ import { FormInput } from "../components";
 import { updateUser } from "../features/user/userSlice";
 import Ball from "../utils/Balls";
 
-const Nav = styled.nav`
+const Container = styled.nav`
   width: ${({ width }) => `${width}px`};
   position: absolute;
   top: 70px;
@@ -144,7 +144,7 @@ const Profile = () => {
   };
 
   return (
-    <Nav width={`${width >= 786 ? navWidth : null}`}>
+    <Container width={`${width >= 786 ? navWidth : null}`}>
       <Wrapper>
         <h1>User Profile</h1>
         <div className="fit">
@@ -195,7 +195,7 @@ const Profile = () => {
           </div>
         </div>
       </Wrapper>
-    </Nav>
+    </Container>
   );
 };
 
