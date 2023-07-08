@@ -51,7 +51,7 @@ const userSlice = createSlice({
   initialState: {
     ...userLocalData,
     isLoading: false,
-    isMember: false,
+    isMember: true,
     isUser: userLocalData ? true : false,
     isSidebarOpen: true,
     navWidth: "auto",
@@ -105,7 +105,7 @@ const userSlice = createSlice({
         state.token = payload.token;
         state.location = payload.location;
         console.log(payload);
-        toast.success(`Welcome ${payload.name}`);
+        toast.success(`Welcome Back ${payload.name}`);
       })
       .addCase(loginUser.rejected, (state, { payload }) => {
         state.isLoading = false;

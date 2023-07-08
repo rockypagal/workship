@@ -47,7 +47,7 @@ const Wrapper = styled.main`
     border-radius: 6px;
     /* box-sizing: border-box; */
     background-color: rgba(206, 206, 254, 0.6);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px);
     position: relative;
     z-index: 1;
     margin: 0 auto;

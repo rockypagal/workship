@@ -50,7 +50,7 @@ const Wrapper = styled.main`
     justify-content: center;
     align-items: center;
     background-color: rgba(206, 206, 254, 0.6);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px);
     border-radius: 6px;
   }
 
@@ -118,15 +118,15 @@ const Wrapper = styled.main`
 
 const AddJob = () => {
   const { navWidth, location } = useSelector((store) => store.user);
-  const { jobType, status } = useSelector((store) => store.jobs);
+  const { jobType, status,isEditing } = useSelector((store) => store.jobs);
   const dispatch = useDispatch();
   const [width, setWidth] = useState(window.innerWidth);
   const [jobData, setJobData] = useState({
     position: "",
     company: "",
     jobLocation: location,
-    jobType: "",
-    status: "",
+    jobType: 'full-time',
+    status: "pending",
   });
 
   const handleChange = (e) => {
@@ -144,13 +144,16 @@ const AddJob = () => {
       toast.error("please fill the form");
       return;
     }
-    console.log(jobData);
+    if(isEditing){
+      // dispatch();
+      return;
+    }
     dispatch(addJobs(jobData));
   };
   return (
     <Container width={`${width >= 786 ? navWidth : null}`}>
       <Wrapper>
-      <h1>Add Jobs</h1>
+      <h1>{isEditing?'Edit Jobs':'Add Jobs'}</h1>
         <form onSubmit={handleSubmit}>
           <Ball width="200px" height="200px" left="20%" />
           <div className="disable">

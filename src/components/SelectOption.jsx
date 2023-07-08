@@ -40,7 +40,7 @@ const Wrapper = styled.main`
 
 `;
 
-const SelectOption = ({ options, name, title, formData ,value}) => {
+const SelectOption = ({ options, name, title, formData ,value,defaultValue}) => {
   return (
     <Wrapper>
       <div className="selectInput">
