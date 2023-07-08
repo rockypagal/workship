@@ -15,7 +15,7 @@ const Container = styled.nav`
 
   transition: all 0.3s;
   h1 {
-    text-align: center;
+    margin-left:40px;
   }
 
   /* z-index:-1; */
@@ -28,6 +28,10 @@ const Container = styled.nav`
   height: 93vh;
   @media (max-width: 786px) {
     width: 100%;
+
+    h1{
+      text-align:center;
+    }
   }
 `;
 
@@ -59,6 +63,7 @@ const Wrapper = styled.main`
     column-gap: 15px;
     justify-content: center;
     align-items: center;
+    padding-top:7px ;
   }
 
   .buttons .clear {
@@ -144,6 +149,7 @@ const AddJob = () => {
   return (
     <Container width={`${width >= 786 ? navWidth : null}`}>
       <Wrapper>
+      <h1>Add Jobs</h1>
         <form onSubmit={handleSubmit}>
           <Ball width="200px" height="200px" left="20%" />
           <div className="disable">
