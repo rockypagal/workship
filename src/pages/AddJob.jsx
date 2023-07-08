@@ -30,6 +30,7 @@ const Container = styled.nav`
     width: 100%;
 
     h1{
+      margin-left:0;
       text-align:center;
     }
   }
@@ -208,11 +209,11 @@ const AddJob = () => {
               formData={handleChange}
             />
             <div className="buttons">
-              <button type="button" className="btn button clickEffect clear">
-                Clear
-              </button>
               <button type="submit" className="btn button clickEffect sbm">
                 Submit
+              </button>
+              <button type="button" className="btn button clickEffect clear">
+                Clear
               </button>
             </div>
           </div>{" "}
