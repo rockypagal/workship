@@ -159,6 +159,7 @@ const AddJob = () => {
       return;
     }
     dispatch(addJobs(jobData));
+    clearValues();
   };
   return (
     <Container width={`${width >= 786 ? navWidth : null}`}>

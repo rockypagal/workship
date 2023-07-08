@@ -52,7 +52,6 @@ const Wrapper = styled.main`
   }
 
   .login__heading {
-    width: 100%;
     gap: 10px;
     margin-bottom: 20px;
     font-size: 20px;
@@ -144,7 +143,12 @@ const Wrapper = styled.main`
     }
 
     .login__form {
-      margin: auto;
+      width:90%;
+      margin:0px auto;
+    }
+
+    .size{
+      font-size: 13px;
     }
   }
 `;
@@ -249,10 +253,10 @@ const Login = () => {
               >
                 {isLoading ? "Loading..." : "Submit"}
               </button>
-              <div className="confirm__text">
+              <div className="confirm__text size">
                 <p>{isMember ? "Not a member yet?" : "Already a member?"}</p>
                 <button
-                  type="button"
+                  type="button size"
                   className="btn"
                   onClick={() => dispatch(checkIsMember())}
                 >
@@ -261,7 +265,7 @@ const Login = () => {
                 </button>
                 <button
                   type="button"
-                  className="btn"
+                  className="btn size"
                   style={{ color: "#722ce2", margin: "0px", padding: "0px" }}
                   onClick={() =>
                     dispatch(

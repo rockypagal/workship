@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 export const addJobs = createAsyncThunk(
   "add/job",
   async (formData, thunkApi) => {
-    console.log(formData);
     try {
       const res = await FetchData.post("/jobs",formData);
       console.log(res);

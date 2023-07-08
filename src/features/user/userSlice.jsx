@@ -104,7 +104,6 @@ const userSlice = createSlice({
         state.lastName = payload.lastName;
         state.token = payload.token;
         state.location = payload.location;
-        console.log(payload);
         toast.success(`Welcome Back ${payload.name}`);
       })
       .addCase(loginUser.rejected, (state, { payload }) => {
@@ -123,7 +122,6 @@ const userSlice = createSlice({
         state.lastName = user.lastName;
         state.token = user.token;
         state.location = user.location;
-        console.log(payload.user);
         toast.success('User updated successfully')
       }).addCase(updateUser.rejected, (state,{payload}) => {
         state.isLoading = false;
