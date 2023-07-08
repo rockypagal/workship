@@ -118,7 +118,7 @@ const Wrapper = styled.main`
 
 const AddJob = () => {
   const { navWidth, location } = useSelector((store) => store.user);
-  const { jobType, status,isEditing } = useSelector((store) => store.jobs);
+  const { jobType,isLoading, status,isEditing } = useSelector((store) => store.jobs);
   const dispatch = useDispatch();
   const [width, setWidth] = useState(window.innerWidth);
   const [jobData, setJobData] = useState({
@@ -135,6 +135,16 @@ const AddJob = () => {
 
     setJobData({ ...jobData, [name]: value });
   };
+
+  const clearValues = ()=>{
+    setJobData({
+    position: "",
+    company: "",
+    jobLocation: location,
+    jobType: 'full-time',
+    status: "pending",
+  })
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -213,9 +223,9 @@ const AddJob = () => {
             />
             <div className="buttons">
               <button type="submit" className="btn button clickEffect sbm">
-                Submit
+              {isLoading ? 'Adding...': 'Add Job'}
               </button>
-              <button type="button" className="btn button clickEffect clear">
+              <button type="button" onClick={clearValues} className="btn button clickEffect clear">
                 Clear
               </button>
             </div>

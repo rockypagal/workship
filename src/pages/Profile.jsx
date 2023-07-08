@@ -128,7 +128,7 @@ const Profile = () => {
     location,
   });
 
-  const { navWidth } = useSelector((store) => store.user);
+  const { navWidth,isLoading } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -189,7 +189,7 @@ const Profile = () => {
                 formData={formData}
               />
               <button className="btn button changeBtn clickEffect">
-                Change
+                {isLoading?'Changing...':'Submit'}
               </button>
             </form>
           </div>
