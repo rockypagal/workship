@@ -131,6 +131,12 @@ const Navbar = () => {
     dispatch(changeNavSize(width));
   }, [width]);
 
+  useEffect(()=>{
+if(width < 1180){
+  menuBar()
+}
+  },[])
+
   return (
     <Nav width={`${width >= 786 ? navWidth : null}`}>
       <Ball width="200px" height="200px" top="-140px" />

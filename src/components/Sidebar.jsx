@@ -120,6 +120,9 @@ const Wrapper = styled.main`
 
 const Sidebar = () => {
   const { isSidebarOpen } = useSelector((store) => store.user);
+ 
+ 
+ 
   return (
     <Wrapper>
       <div className="backBall">

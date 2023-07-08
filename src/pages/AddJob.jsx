@@ -224,7 +224,7 @@ const AddJob = () => {
             />
             <div className="buttons">
               <button type="submit" className="btn button clickEffect sbm">
-              {isLoading ? 'Adding...': 'Add Job'}
+              {isLoading ? 'Adding...': 'Add'}
               </button>
               <button type="button" onClick={clearValues} className="btn button clickEffect clear">
                 Clear
