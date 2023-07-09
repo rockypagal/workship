@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import FetchData from "../../../utils/FetchData";
+import FetchData from "../../utils/FetchData";
 import { toast } from "react-toastify";
 
 export const addJobs = createAsyncThunk(
   "add/job",
   async (formData, thunkApi) => {
     try {
-      const res = await FetchData.post("/jobs",formData);
+      const res = await FetchData.post("/jobs", formData);
       console.log(res);
       return res.data;
     } catch (error) {
@@ -16,6 +16,18 @@ export const addJobs = createAsyncThunk(
   }
 );
 
+export const showJobs = createAsyncThunk(
+  "show/jobs",
+  async (formData, thunkApi) => {
+    try {
+      const res = await FetchData.get("/jobs", formData);
+      console.log(res);
+      return res.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(err.response.data.msg);
+    }
+  }
+);
 const jobSlice = createSlice({
   name: "jobSlice",
   initialState: {
@@ -24,6 +36,7 @@ const jobSlice = createSlice({
     status: ["pending", "interview", "declined"],
     jobType: ["full-time", "part-time", "remote", "internship"],
     sort: ["latest", "oldest", "a-z", "z-a"],
+    page:1,
   },
   extraReducers: (builds) => {
     builds
@@ -37,9 +50,15 @@ const jobSlice = createSlice({
       .addCase(addJobs.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);
+      }).addCase(showJobs.pending, (state)=>{
+        state.isLoading = true;
+      }).addCase(showJobs.fulfilled, (state, { payload })=>{
+        state.isLoading = false;
+      }).addCase(showJobs.rejected, (state,{payload}) => {
+        state.isLoading = false;
+        toast.error(payload);
       });
   },
 });
 
-
-export default jobSlice.reducer
+export default jobSlice.reducer;

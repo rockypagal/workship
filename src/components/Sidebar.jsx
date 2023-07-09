@@ -3,7 +3,7 @@ import styled from "styled-components";
 import logo from "../assets/logos/main_logo.png";
 import minLogo from "../assets/logos/logo.png";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 // import {FaChartSimple} from 'react-icons/fa';
 import { BiSearchAlt } from "react-icons/bi";
 import { BiStats } from "react-icons/bi";
@@ -30,7 +30,7 @@ const Wrapper = styled.main`
     background-color: rgba(206, 206, 254, 0.6);
     backdrop-filter: blur(10px);
     /* z-index: 0; */
-      box-shadow:3px 0px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 3px 0px 10px rgba(0, 0, 0, 0.3);
   }
 
   .hide-sidebar {
@@ -77,20 +77,22 @@ const Wrapper = styled.main`
     color: var(--secondary-button);
     padding-left: 15px;
   }
-  
+
   li:active {
     /* padding-left: 25px; */
-    scale: .9;
+    scale: 0.9;
   }
-
+  .active li{
+     color: var(--primary-button);
+  }
   .hide-sidebar li:hover {
     justify-content: center;
     padding-left: 0;
     scale: calc(1.2);
-  } 
-  
-   .hide-sidebar li:active {
-    scale: .9;
+  }
+
+  .hide-sidebar li:active {
+    scale: 0.9;
   }
   span {
     width: 100%;
@@ -120,9 +122,7 @@ const Wrapper = styled.main`
 
 const Sidebar = () => {
   const { isSidebarOpen } = useSelector((store) => store.user);
- 
- 
- 
+
   return (
     <Wrapper>
       <div className="backBall">
@@ -144,35 +144,52 @@ const Sidebar = () => {
           </div>
           <nav className="navLinks">
             <ul>
-              <Link to="/">
+              <NavLink
+                to="/"
+                className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active" : ""
+                }
+              >
                 {" "}
-                <li className={isSidebarOpen ? "hide_text":''}>
+                <li className={isSidebarOpen ? "hide_text" : ""}>
                   {" "}
                   <BiStats className={isSidebarOpen && "icon"} />
-                  <span className={isSidebarOpen ? " animate":''}>Stats</span>
+                  <span className={isSidebarOpen ? " animate" : ""}>Stats</span>
                 </li>
-              </Link>
-              <Link to="/all-jobs">
+              </NavLink>
+              <NavLink to="/all-jobs" className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active" : ""
+                }>
                 {" "}
-                <li className={isSidebarOpen ? "hide_text":''}>
+                <li className={isSidebarOpen ? "hide_text" : ""}>
                   <BiSearchAlt className="icon" />
-                  <span className={isSidebarOpen ? "animate":''}>All Jobs</span>
+                  <span className={isSidebarOpen ? "animate" : ""}>
+                    All Jobs
+                  </span>
                 </li>
-              </Link>
-              <Link to="/add-job">
+              </NavLink>
+              <NavLink to="/add-job" className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active" : ""
+                }>
                 {" "}
-                <li className={isSidebarOpen ? "hide_text":''}>
+                <li className={isSidebarOpen ? "hide_text" : ""}>
                   <BsBriefcase className={isSidebarOpen && "icon"} />
-                  <span className={isSidebarOpen ? "animate":''}>Add Jobs</span>
+                  <span className={isSidebarOpen ? "animate" : ""}>
+                    Add Jobs
+                  </span>
                 </li>
-              </Link>
-              <Link to="/profile">
-                <li className={isSidebarOpen ? "hide_text":''}>
+              </NavLink>
+              <NavLink to="/profile" className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active" : ""
+                }>
+                <li className={isSidebarOpen ? "hide_text" : ""}>
                   {" "}
                   <FiUser className={isSidebarOpen && "icon"} />
-                  <span className={isSidebarOpen ? "animate":''}>Profile</span>
+                  <span className={isSidebarOpen ? "animate" : ""}>
+                    Profile
+                  </span>
                 </li>
-              </Link>
+              </NavLink>
             </ul>
           </nav>
         </div>

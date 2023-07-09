@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Ball from "../utils/Balls";
 import { FormInput, SelectOption } from "../components";
 import { toast } from "react-toastify";
+import { showJobs } from "../features/job/jobSlice";
 
 const Container = styled.nav`
   width: ${({ width }) => `${width}px`};
@@ -50,6 +51,7 @@ const Wrapper = styled.main`
     background-color: rgba(206, 206, 254, 0.6);
     backdrop-filter: blur(20px);
     border-radius: 6px;
+    box-shadow: 0px 10px 20px #927fb8;
   }
 
   .visible {
@@ -115,7 +117,7 @@ const Wrapper = styled.main`
 `;
 
 const AllJobs = () => {
-  const { navWidth, location } = useSelector((store) => store.user);
+  const { navWidth} = useSelector((store) => store.user);
   const { jobType, isLoading, sort, status, isEditing } = useSelector(
     (store) => store.jobs
   );
@@ -125,7 +127,7 @@ const AllJobs = () => {
     search: "",
     status: "pending",
     jobType: "full-time",
-    sort,
+    sort:'latest',
   });
 
   const handleChange = (e) => {
@@ -137,7 +139,7 @@ const AllJobs = () => {
 
   const clearValues = () => {
     setJobData({
-      position: "",
+      search: "",
       jobType: "full-time",
       status: "pending",
       sort:'latest',
@@ -146,9 +148,8 @@ const AllJobs = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { position, company, jobLocation, status, jobType } = jobData;
-    console.log(position, company, jobLocation, status, jobType);
-    if (!position || !company || !location || !status || !jobType) {
+    const { search,jobType,status,sort} = jobData;
+    if (!search) {
       toast.error("please fill the form");
       return;
     }
@@ -156,7 +157,7 @@ const AllJobs = () => {
       // dispatch();
       return;
     }
-    dispatch(addJobs(jobData));
+    dispatch(showJobs(jobData));
     clearValues();
   };
   return (
@@ -172,7 +173,7 @@ const AllJobs = () => {
               right="30px"
             />
           <div className="disable">
-           <Ball width="300px"  height="300px" left="20%" top="20%" />
+           <Ball width="300px"  height="300px" left="20%" top="10%" />
           </div>
           <div className="visible">
             <Ball
@@ -214,7 +215,7 @@ const AllJobs = () => {
             />
             <div className="buttons">
               <button type="submit" className="btn button clickEffect sbm">
-                {isLoading ? "searching..." : "search"}
+                {isLoading ? "Searching..." : "Search"}
               </button>
               <button
                 type="button"

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addJobs } from "../features/user/job/jobSlice";
+import {addJobs} from "../features/job/jobSlice";
 import styled from "styled-components";
 import FormInput from "../components/FormInput";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,7 +40,7 @@ const Wrapper = styled.main`
   .jobsForm {
     width: 90%;
     margin: 0 auto;
-    margin-top: 40px;
+    
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 10px;
@@ -53,7 +53,7 @@ const Wrapper = styled.main`
     backdrop-filter: blur(20px);
     border-radius: 6px;
   }
-
+  
   .visible {
     display: none;
   }
