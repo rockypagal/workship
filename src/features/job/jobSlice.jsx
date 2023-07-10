@@ -37,6 +37,7 @@ const jobSlice = createSlice({
     jobType: ["full-time", "part-time", "remote", "internship"],
     sort: ["latest", "oldest", "a-z", "z-a"],
     page:1,
+    resJob:'',
   },
   extraReducers: (builds) => {
     builds
@@ -54,6 +55,8 @@ const jobSlice = createSlice({
         state.isLoading = true;
       }).addCase(showJobs.fulfilled, (state, { payload })=>{
         state.isLoading = false;
+        console.log(payload);
+        state.resJob= payload;
       }).addCase(showJobs.rejected, (state,{payload}) => {
         state.isLoading = false;
         toast.error(payload);

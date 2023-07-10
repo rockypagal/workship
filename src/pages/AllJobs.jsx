@@ -5,7 +5,9 @@ import Ball from "../utils/Balls";
 import { FormInput, SelectOption } from "../components";
 import { toast } from "react-toastify";
 import { showJobs } from "../features/job/jobSlice";
-
+import { CiLocationArrow1 } from "react-icons/ci";
+import { BsCalendarEvent } from "react-icons/bs";
+import { MdOutlineWorkHistory } from "react-icons/md";
 const Container = styled.nav`
   width: ${({ width }) => `${width}px`};
   position: absolute;
@@ -77,6 +79,86 @@ const Wrapper = styled.main`
     width: 100%;
   }
 
+  .jobsContainer {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .jobCard {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px black solid;
+    border: 1px solid var(--primary-button);
+    background-color: rgba(206, 206, 254, 0.6);
+    backdrop-filter: blur(20px);
+    border-radius: 6px;
+  }
+
+  .companyName {
+    display: flex;
+    padding: 16px 24px;
+    align-items: center;
+    border-bottom:1px solid var(--primary-button);
+  }
+
+  .comLogo {
+    font-size: 40px;
+    margin-right: 40px;
+    height: 60px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-button);
+    color: var(--secondary-button);
+    color: white;
+    border-radius: 5px;
+  }
+
+  .jobName p:first-child {
+    font-size: 20px;
+    margin-bottom: 3px;
+  }
+
+  .jobName p:nth-child(even) {
+    color: var(--secondary-button);
+  }
+  .mid_card-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 16px 24px;
+    gap: 10px;
+  }
+  .mid_card-section p {
+    display: flex;
+    font-size: 18px;
+  }
+
+  .mid_card-section p span {
+    font-size: 21px;
+    margin-right: 10px;
+  }
+  .bottom_card-section {
+    padding: 16px 24px;
+  }
+
+  .edit,
+  .delete {
+    padding: 0px;
+    height: 30px;
+    width: 80px;
+    background-color: var(--primary-button);
+    border-radius: 5px;
+  }
+
+  .edit {
+    margin-right: 10px;
+  }
+
   @media (min-width: 1240px) {
     .jobsForm {
       padding-top: 70px;
@@ -117,7 +199,7 @@ const Wrapper = styled.main`
 `;
 
 const AllJobs = () => {
-  const { navWidth} = useSelector((store) => store.user);
+  const { navWidth } = useSelector((store) => store.user);
   const { jobType, isLoading, sort, status, isEditing } = useSelector(
     (store) => store.jobs
   );
@@ -127,7 +209,7 @@ const AllJobs = () => {
     search: "",
     status: "pending",
     jobType: "full-time",
-    sort:'latest',
+    sort: "latest",
   });
 
   const handleChange = (e) => {
@@ -142,13 +224,13 @@ const AllJobs = () => {
       search: "",
       jobType: "full-time",
       status: "pending",
-      sort:'latest',
+      sort: "latest",
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { search,jobType,status,sort} = jobData;
+    const { search, jobType, status, sort } = jobData;
     if (!search) {
       toast.error("please fill the form");
       return;
@@ -165,15 +247,15 @@ const AllJobs = () => {
       <Wrapper>
         <h1>{isEditing ? "Edit Jobs" : "All Jobs"}</h1>
         <form onSubmit={handleSubmit}>
-           <Ball
-             width="200px"
-             height="200px" 
-              direction="top"
-              top="10%"
-              right="30px"
-            />
+          <Ball
+            width="200px"
+            height="200px"
+            direction="top"
+            top="10%"
+            right="30px"
+          />
           <div className="disable">
-           <Ball width="300px"  height="300px" left="20%" top="10%" />
+            <Ball width="300px" height="300px" left="20%" top="10%" />
           </div>
           <div className="visible">
             <Ball
@@ -227,6 +309,47 @@ const AllJobs = () => {
             </div>
           </div>{" "}
         </form>
+
+        <div className="jobsContainer">
+          <div className="jobCard">
+            <div className="top_card-section">
+              <div className="companyName">
+                <div className="comLogo">
+                  <p>S</p>
+                </div>
+                <div className="jobName">
+                  <p>Civil Engineer</p>
+                  <p>Google</p>
+                </div>
+              </div>
+            </div>
+            <div className="mid_card-section">
+              <p>
+                <span>
+                  <CiLocationArrow1 />
+                </span>
+                Mexian
+              </p>
+              <p>
+                <span>
+                  <BsCalendarEvent />
+                </span>
+                Dec 10th 2021
+              </p>
+              <p>
+                <span>
+                  <MdOutlineWorkHistory />
+                </span>
+                Full time
+              </p>
+              <p className="status">Mexian</p>
+            </div>
+            <div className="bottom_card-section">
+              <button className=" btn clickEffect edit">Edit</button>
+              <button className=" btn clickEffect delete">Delete</button>
+            </div>
+          </div>
+        </div>
       </Wrapper>
     </Container>
   );
