@@ -5,7 +5,13 @@ import { BsCalendarEvent } from "react-icons/bs";
 import { MdOutlineWorkHistory } from "react-icons/md";
 import moment from "moment/moment";
 
-const Wrapper = styled.main``;
+const Wrapper = styled.main`
+
+.comLogo p{
+    text-transform: uppercase;
+}
+
+`;
 const JobCard = ({company,jobLocation,createdAt, position, status, jobType}) => {
  
     const date = moment(createdAt).format('Do MMM , YYYY');
@@ -16,7 +22,7 @@ const JobCard = ({company,jobLocation,createdAt, position, status, jobType}) => 
         <div className="top_card-section">
           <div className="companyName">
             <div className="comLogo">
-              <p>S</p>
+              <p>{company.charAt(0)}</p>
             </div>
             <div className="jobName">
               <p>{position}</p>

@@ -19,12 +19,18 @@ export const addJobs = createAsyncThunk(
 export const showJobs = createAsyncThunk(
   "show/jobs",
   async (formData, thunkApi) => {
+    console.log('hello');
+    const {search,sort,jobType,status} = formData
+    let url = `/jobs?sort=${sort}&jobType=${jobType}&status=${status}`
+if(search){
+  url =url+ `&search=${search}`
+}
     try {
-      const res = await FetchData.get("/jobs", formData);
+      const res = await FetchData.get(url);
       console.log(res);
       return res.data;
     } catch (error) {
-      return thunkApi.rejectWithValue(err.response.data.msg);
+      return thunkApi.rejectWithValue(error.response.data.msg);
     }
   }
 );
@@ -33,8 +39,8 @@ const jobSlice = createSlice({
   initialState: {
     isLoading: false,
     isEditing: false,
-    status: ["pending", "interview", "declined"],
-    jobType: ["full-time", "part-time", "remote", "internship"],
+    status: ["all","pending", "interview", "declined"],
+    jobType: ["all","full-time", "part-time", "remote", "internship"],
     sort: ["latest", "oldest", "a-z", "z-a"],
     page:1,
     resJob:'',

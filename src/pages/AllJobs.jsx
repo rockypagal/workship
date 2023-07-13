@@ -61,11 +61,15 @@ const Wrapper = styled.main`
 
   .buttons {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     column-gap: 15px;
     justify-content: center;
     align-items: center;
     padding-top: 7px;
+  }
+
+  .buttons button:hover {
+  scale: 1.03;
   }
 
   .buttons .clear {
@@ -78,7 +82,7 @@ const Wrapper = styled.main`
     width: 100%;
   }
 
-  .totalJobs{
+  .totalJobs {
     padding-top: 20px;
   }
   .jobsContainer {
@@ -91,8 +95,6 @@ const Wrapper = styled.main`
     row-gap: 30px;
     padding-bottom: 50px;
   }
-
-  
 
   .jobCard {
     display: flex;
@@ -145,7 +147,6 @@ const Wrapper = styled.main`
     grid-template-columns: 1fr 1fr;
     padding: 16px 24px;
     gap: 20px;
-    
   }
   .mid_card-section p {
     display: flex;
@@ -221,8 +222,8 @@ const AllJobs = () => {
   const [width, setWidth] = useState(window.innerWidth);
   const [jobData, setJobData] = useState({
     search: "",
-    status: "pending",
-    jobType: "full-time",
+    status: "all",
+    jobType: "all",
     sort: "latest",
   });
 
@@ -236,8 +237,8 @@ const AllJobs = () => {
   const clearValues = () => {
     setJobData({
       search: "",
-      jobType: "full-time",
-      status: "pending",
+      jobType: "all",
+      status: "all",
       sort: "latest",
     });
   };
@@ -245,22 +246,18 @@ const AllJobs = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { search, jobType, status, sort } = jobData;
-    if (!search) {
-      toast.error("please fill the form");
-      return;
-    }
+
     if (isEditing) {
       // dispatch();
       return;
     }
     dispatch(showJobs(jobData));
-    clearValues();
   };
   const { jobs, numOfPages, totalJobs } = resJob;
 
   useEffect(() => {
     dispatch(showJobs(jobData));
-  }, []);
+  }, [sort, jobType, status]);
 
   return (
     <Container width={`${width >= 786 ? navWidth : null}`}>
@@ -319,6 +316,8 @@ const AllJobs = () => {
               <button type="submit" className="btn button clickEffect sbm">
                 {isLoading ? "Searching..." : "Search"}
               </button>
+            </div>
+            <div className="buttons">
               <button
                 type="button"
                 onClick={clearValues}
@@ -330,17 +329,36 @@ const AllJobs = () => {
           </div>{" "}
         </form>
 
-
-<div className="totalJobs">
-  <h1>{totalJobs} {totalJobs > 1 ? "Jobs":"Job"} </h1>
-</div>
+        <div className="totalJobs">
+          <h1>
+            {totalJobs} {totalJobs > 1 ? "Jobs" : "Job"}{" "}
+          </h1>
+        </div>
 
         <div className="jobsContainer">
           {jobs &&
             jobs.map((item) => {
-              const { _id,createdAt, company, position, status, jobType,jobLocation } = item;
+              const {
+                _id,
+                createdAt,
+                company,
+                position,
+                status,
+                jobType,
+                jobLocation,
+              } = item;
 
-              return <JobCard key={_id} createdAt={createdAt} company={company} position={position} status={status} jobType={jobType} jobLocation={jobLocation} />;
+              return (
+                <JobCard
+                  key={_id}
+                  createdAt={createdAt}
+                  company={company}
+                  position={position}
+                  status={status}
+                  jobType={jobType}
+                  jobLocation={jobLocation}
+                />
+              );
             })}
         </div>
       </Wrapper>
