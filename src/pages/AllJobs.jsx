@@ -230,6 +230,11 @@ const Wrapper = styled.main`
     .totalJobs {
     padding-top: 0px;
   }
+
+    .buttons button:hover {
+    scale: 1;
+    box-shadow: none;
+  }
   }
 `;
 
