@@ -183,6 +183,8 @@ const Wrapper = styled.main`
     margin-right: 10px;
   }
 
+
+
   @media (min-width: 1240px) {
     .jobsForm {
       padding-top: 70px;
@@ -220,21 +222,24 @@ const Wrapper = styled.main`
       row-gap: 15px;
     }
 
-      .jobsContainer {
-    grid-template-columns: 1fr;
-    column-gap: 30px;
-    row-gap: 30px;
-    margin-bottom: 50px;
-  }
+    .jobsContainer {
+      grid-template-columns: 1fr;
+      column-gap: 30px;
+      row-gap: 30px;
+      margin-bottom: 50px;
+    }
 
     .totalJobs {
-    padding-top: 0px;
-  }
+      padding-top: 0px;
+    }
 
     .buttons button:hover {
-    scale: 1;
-    box-shadow: none;
-  }
+      scale: 1;
+      box-shadow: none;
+    }
+    .buttons button:active {
+      scale: 0.9;
+    }
   }
 `;
 
@@ -281,7 +286,7 @@ const AllJobs = () => {
   const { jobs, numOfPages, totalJobs } = resJob;
 
   useEffect(() => {
-    console.log('use');
+    console.log("use");
     dispatch(showJobs(jobData));
   }, [jobData.sort, jobData.jobType, jobData.status]);
 
