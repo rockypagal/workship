@@ -240,6 +240,15 @@ const Wrapper = styled.main`
     .buttons button:active {
       scale: 0.9;
     }
+
+    
+  .jobCard:hover {
+    scale: 1;
+  }
+  .jobCard:active{
+    scale: 1.5;
+  }
+
   }
 `;
 
