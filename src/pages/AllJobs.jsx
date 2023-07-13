@@ -226,6 +226,10 @@ const Wrapper = styled.main`
     row-gap: 30px;
     margin-bottom: 50px;
   }
+
+    .totalJobs {
+    padding-top: 0px;
+  }
   }
 `;
 
