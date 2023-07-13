@@ -6,6 +6,7 @@ import { FormInput, SelectOption } from "../components";
 import { toast } from "react-toastify";
 import { showJobs } from "../features/job/jobSlice";
 import { JobCard } from "../components";
+import Loading from "../utils/Loading/Loading";
 
 const Container = styled.nav`
   width: ${({ width }) => `${width}px`};
@@ -68,8 +69,16 @@ const Wrapper = styled.main`
     padding-top: 7px;
   }
 
+  .buttons button {
+    transition: all 0.2s;
+  }
+
   .buttons button:hover {
-  scale: 1.03;
+    scale: 1.03;
+    box-shadow: 0px 10px 20px #927fb8;
+  }
+  .buttons button:active {
+    scale: 0.9;
   }
 
   .buttons .clear {
@@ -210,6 +219,13 @@ const Wrapper = styled.main`
       grid-template-columns: 1fr;
       row-gap: 15px;
     }
+
+      .jobsContainer {
+    grid-template-columns: 1fr;
+    column-gap: 30px;
+    row-gap: 30px;
+    margin-bottom: 50px;
+  }
   }
 `;
 
@@ -256,8 +272,9 @@ const AllJobs = () => {
   const { jobs, numOfPages, totalJobs } = resJob;
 
   useEffect(() => {
+    console.log('use');
     dispatch(showJobs(jobData));
-  }, [sort, jobType, status]);
+  }, [jobData.sort, jobData.jobType, jobData.status]);
 
   return (
     <Container width={`${width >= 786 ? navWidth : null}`}>
@@ -321,7 +338,7 @@ const AllJobs = () => {
               <button
                 type="button"
                 onClick={clearValues}
-                className="btn button clickEffect clear"
+                className="btn clickEffect button  clear"
               >
                 Clear
               </button>
@@ -329,38 +346,44 @@ const AllJobs = () => {
           </div>{" "}
         </form>
 
-        <div className="totalJobs">
-          <h1>
-            {totalJobs} {totalJobs > 1 ? "Jobs" : "Job"}{" "}
-          </h1>
-        </div>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <div>
+            <div className="totalJobs">
+              <h1>
+                {totalJobs} {totalJobs > 1 ? "Jobs" : "Job"}{" "}
+              </h1>
+            </div>
 
-        <div className="jobsContainer">
-          {jobs &&
-            jobs.map((item) => {
-              const {
-                _id,
-                createdAt,
-                company,
-                position,
-                status,
-                jobType,
-                jobLocation,
-              } = item;
+            <div className="jobsContainer">
+              {jobs &&
+                jobs.map((item) => {
+                  const {
+                    _id,
+                    createdAt,
+                    company,
+                    position,
+                    status,
+                    jobType,
+                    jobLocation,
+                  } = item;
 
-              return (
-                <JobCard
-                  key={_id}
-                  createdAt={createdAt}
-                  company={company}
-                  position={position}
-                  status={status}
-                  jobType={jobType}
-                  jobLocation={jobLocation}
-                />
-              );
-            })}
-        </div>
+                  return (
+                    <JobCard
+                      key={_id}
+                      createdAt={createdAt}
+                      company={company}
+                      position={position}
+                      status={status}
+                      jobType={jobType}
+                      jobLocation={jobLocation}
+                    />
+                  );
+                })}
+            </div>
+          </div>
+        )}
       </Wrapper>
     </Container>
   );
