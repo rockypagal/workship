@@ -246,7 +246,7 @@ const Wrapper = styled.main`
     scale: 1;
   }
   .jobCard:active{
-    scale: 1.05;
+    scale: .98;
   }
 
   }
