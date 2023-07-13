@@ -6,7 +6,7 @@ export const addJobs = createAsyncThunk(
   "add/job",
   async (formData, thunkApi) => {
     try {
-      const res = await FetchData.post("/jobs");
+      const res = await FetchData.post("/jobs",formData);
       console.log(res);
       return res.data;
     } catch (error) {
