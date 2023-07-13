@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Ball from "../utils/Balls";
 import { FormInput, SelectOption } from "../components";
 import { toast } from "react-toastify";
 import { showJobs } from "../features/job/jobSlice";
-import { CiLocationArrow1 } from "react-icons/ci";
-import { BsCalendarEvent } from "react-icons/bs";
-import { MdOutlineWorkHistory } from "react-icons/md";
+import { JobCard } from "../components";
+
 const Container = styled.nav`
   width: ${({ width }) => `${width}px`};
   position: absolute;
@@ -79,13 +78,21 @@ const Wrapper = styled.main`
     width: 100%;
   }
 
+  .totalJobs{
+    padding-top: 20px;
+  }
   .jobsContainer {
     width: 90%;
     margin: 0 auto;
     margin-top: 60px;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    column-gap: 30px;
+    row-gap: 30px;
+    padding-bottom: 50px;
   }
+
+  
 
   .jobCard {
     display: flex;
@@ -96,13 +103,19 @@ const Wrapper = styled.main`
     background-color: rgba(206, 206, 254, 0.6);
     backdrop-filter: blur(20px);
     border-radius: 6px;
+    box-shadow: 0px 10px 20px #927fb8;
+    transition: all 0.2s;
+  }
+
+  .jobCard:hover {
+    scale: 1.05;
   }
 
   .companyName {
     display: flex;
     padding: 16px 24px;
     align-items: center;
-    border-bottom:1px solid var(--primary-button);
+    border-bottom: 1px solid var(--primary-button);
   }
 
   .comLogo {
@@ -131,7 +144,8 @@ const Wrapper = styled.main`
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 16px 24px;
-    gap: 10px;
+    gap: 20px;
+    
   }
   .mid_card-section p {
     display: flex;
@@ -200,7 +214,7 @@ const Wrapper = styled.main`
 
 const AllJobs = () => {
   const { navWidth } = useSelector((store) => store.user);
-  const { jobType, isLoading, sort, status, isEditing } = useSelector(
+  const { jobType, isLoading, resJob, sort, status, isEditing } = useSelector(
     (store) => store.jobs
   );
   const dispatch = useDispatch();
@@ -242,6 +256,12 @@ const AllJobs = () => {
     dispatch(showJobs(jobData));
     clearValues();
   };
+  const { jobs, numOfPages, totalJobs } = resJob;
+
+  useEffect(() => {
+    dispatch(showJobs(jobData));
+  }, []);
+
   return (
     <Container width={`${width >= 786 ? navWidth : null}`}>
       <Wrapper>
@@ -310,45 +330,18 @@ const AllJobs = () => {
           </div>{" "}
         </form>
 
+
+<div className="totalJobs">
+  <h1>{totalJobs} {totalJobs > 1 ? "Jobs":"Job"} </h1>
+</div>
+
         <div className="jobsContainer">
-          <div className="jobCard">
-            <div className="top_card-section">
-              <div className="companyName">
-                <div className="comLogo">
-                  <p>S</p>
-                </div>
-                <div className="jobName">
-                  <p>Civil Engineer</p>
-                  <p>Google</p>
-                </div>
-              </div>
-            </div>
-            <div className="mid_card-section">
-              <p>
-                <span>
-                  <CiLocationArrow1 />
-                </span>
-                Mexian
-              </p>
-              <p>
-                <span>
-                  <BsCalendarEvent />
-                </span>
-                Dec 10th 2021
-              </p>
-              <p>
-                <span>
-                  <MdOutlineWorkHistory />
-                </span>
-                Full time
-              </p>
-              <p className="status">Mexian</p>
-            </div>
-            <div className="bottom_card-section">
-              <button className=" btn clickEffect edit">Edit</button>
-              <button className=" btn clickEffect delete">Delete</button>
-            </div>
-          </div>
+          {jobs &&
+            jobs.map((item) => {
+              const { _id,createdAt, company, position, status, jobType,jobLocation } = item;
+
+              return <JobCard key={_id} createdAt={createdAt} company={company} position={position} status={status} jobType={jobType} jobLocation={jobLocation} />;
+            })}
         </div>
       </Wrapper>
     </Container>

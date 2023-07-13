@@ -6,7 +6,7 @@ export const addJobs = createAsyncThunk(
   "add/job",
   async (formData, thunkApi) => {
     try {
-      const res = await FetchData.post("/jobs", formData);
+      const res = await FetchData.post("/jobs");
       console.log(res);
       return res.data;
     } catch (error) {
@@ -39,6 +39,8 @@ const jobSlice = createSlice({
     page:1,
     resJob:'',
   },
+
+ 
   extraReducers: (builds) => {
     builds
       .addCase(addJobs.pending, (state) => {
