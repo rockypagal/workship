@@ -149,7 +149,6 @@ const AddJob = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { position, company, jobLocation, status, jobType } = jobData;
-    console.log(position, company, jobLocation, status, jobType);
     if (!position || !company || !location || !status || !jobType) {
       toast.error("please fill the form");
       return;

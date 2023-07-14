@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Ball from "../utils/Balls";
 import { FormInput, SelectOption } from "../components";
 import { toast } from "react-toastify";
-import { showJobs } from "../features/job/jobSlice";
+import { changePage, showJobs } from "../features/job/jobSlice";
 import { JobCard } from "../components";
 import Loading from "../utils/Loading/Loading";
 
@@ -183,8 +183,6 @@ const Wrapper = styled.main`
     margin-right: 10px;
   }
 
-
-
   @media (min-width: 1240px) {
     .jobsForm {
       padding-top: 70px;
@@ -241,22 +239,19 @@ const Wrapper = styled.main`
       scale: 0.9;
     }
 
-    
-  .jobCard:hover {
-    scale: 1;
-  }
-  .jobCard:active{
-    scale: .98;
-  }
-
+    .jobCard:hover {
+      scale: 1;
+    }
+    .jobCard:active {
+      scale: 0.98;
+    }
   }
 `;
 
 const AllJobs = () => {
   const { navWidth } = useSelector((store) => store.user);
-  const { jobType, isLoading, resJob, sort, status, isEditing } = useSelector(
-    (store) => store.jobs
-  );
+  const { jobType, isLoading, resJob, sort, page, status, isEditing } =
+    useSelector((store) => store.jobs);
   const dispatch = useDispatch();
   const [width, setWidth] = useState(window.innerWidth);
   const [jobData, setJobData] = useState({
@@ -292,12 +287,18 @@ const AllJobs = () => {
     }
     dispatch(showJobs(jobData));
   };
+
   const { jobs, numOfPages, totalJobs } = resJob;
 
+  const pages = Array.from({length: numOfPages},(item,index)=>{
+    return index+1;
+  })
+
+  console.log(pages);
+
   useEffect(() => {
-    console.log("use");
     dispatch(showJobs(jobData));
-  }, [jobData.sort, jobData.jobType, jobData.status]);
+  }, [jobData.sort, jobData.jobType, jobData.status, page]);
 
   return (
     <Container width={`${width >= 786 ? navWidth : null}`}>
@@ -378,7 +379,6 @@ const AllJobs = () => {
                 {totalJobs} {totalJobs > 1 ? "Jobs" : "Job"}{" "}
               </h1>
             </div>
-
             <div className="jobsContainer">
               {jobs &&
                 jobs.map((item) => {
@@ -404,6 +404,13 @@ const AllJobs = () => {
                     />
                   );
                 })}
+            </div>
+            <div className="pagination">
+              {
+                pages && pages.map((item, index) =>{
+                 return <button className="btn button" key={index} onClick={()=>dispatch(changePage(item))}>{item}</button>
+                })
+              }
             </div>
           </div>
         )}
