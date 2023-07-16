@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Ball from "../utils/Balls";
 import { FormInput, SelectOption } from "../components";
 import { toast } from "react-toastify";
-import { changePage, showJobs } from "../features/job/jobSlice";
+import { changePage, deleteJob, showJobs } from "../features/job/jobSlice";
 import { JobCard } from "../components";
 import Loading from "../utils/Loading/Loading";
 
@@ -250,8 +250,9 @@ const Wrapper = styled.main`
 
 const AllJobs = () => {
   const { navWidth } = useSelector((store) => store.user);
-  const { jobType, isLoading, resJob, sort, page, status, isEditing } =
-    useSelector((store) => store.jobs);
+  const { jobType, isLoading,isDeleted, resJob, sort, page, status } = useSelector(
+    (store) => store.jobs
+  );
   const dispatch = useDispatch();
   const [width, setWidth] = useState(window.innerWidth);
   const [jobData, setJobData] = useState({
@@ -290,20 +291,19 @@ const AllJobs = () => {
 
   const { jobs, numOfPages, totalJobs } = resJob;
 
-  const pages = Array.from({length: numOfPages},(item,index)=>{
-    return index+1;
-  })
+  const pages = Array.from({ length: numOfPages }, (item, index) => {
+    return index + 1;
+  });
 
-  console.log(pages);
 
   useEffect(() => {
     dispatch(showJobs(jobData));
-  }, [jobData.sort, jobData.jobType, jobData.status, page]);
+  }, [jobData.sort, jobData.jobType, jobData.status, page,isDeleted]);
 
   return (
     <Container width={`${width >= 786 ? navWidth : null}`}>
       <Wrapper>
-        <h1>{isEditing ? "Edit Jobs" : "All Jobs"}</h1>
+        <h1>All Jobs</h1>
         <form onSubmit={handleSubmit}>
           <Ball
             width="200px"
@@ -333,14 +333,14 @@ const AllJobs = () => {
               formData={handleChange}
             />
             <SelectOption
-              options={status}
+              options={['all',...status]}
               title="Status"
               name="status"
               formData={handleChange}
               value={jobData.status}
             />
             <SelectOption
-              options={jobType}
+              options={['all',...jobType]}
               title="Job Type"
               name="jobType"
               value={jobData.jobType}
@@ -395,6 +395,7 @@ const AllJobs = () => {
                   return (
                     <JobCard
                       key={_id}
+                      _id={_id}
                       createdAt={createdAt}
                       company={company}
                       position={position}
@@ -406,11 +407,18 @@ const AllJobs = () => {
                 })}
             </div>
             <div className="pagination">
-              {
-                pages && pages.map((item, index) =>{
-                 return <button className="btn button" key={index} onClick={()=>dispatch(changePage(item))}>{item}</button>
-                })
-              }
+              {pages &&
+                pages.map((item, index) => {
+                  return (
+                    <button
+                      className="btn button"
+                      key={index}
+                      onClick={() => dispatch(changePage(item))}
+                    >
+                      {item}
+                    </button>
+                  );
+                })}
             </div>
           </div>
         )}

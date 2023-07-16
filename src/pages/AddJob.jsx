@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {addJobs} from "../features/job/jobSlice";
+import { addJobs, updateJob } from "../features/job/jobSlice";
 import styled from "styled-components";
 import FormInput from "../components/FormInput";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +15,7 @@ const Container = styled.nav`
 
   transition: all 0.3s;
   h1 {
-    margin-left:40px;
+    margin-left: 40px;
   }
 
   /* z-index:-1; */
@@ -29,9 +29,9 @@ const Container = styled.nav`
   @media (max-width: 786px) {
     width: 100%;
 
-    h1{
-      margin-left:0;
-      text-align:center;
+    h1 {
+      margin-left: 0;
+      text-align: center;
     }
   }
 `;
@@ -40,7 +40,7 @@ const Wrapper = styled.main`
   .jobsForm {
     width: 90%;
     margin: 0 auto;
-    
+
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 10px;
@@ -53,7 +53,7 @@ const Wrapper = styled.main`
     backdrop-filter: blur(20px);
     border-radius: 6px;
   }
-  
+
   .visible {
     display: none;
   }
@@ -64,7 +64,7 @@ const Wrapper = styled.main`
     column-gap: 15px;
     justify-content: center;
     align-items: center;
-    padding-top:7px ;
+    padding-top: 7px;
   }
 
   .buttons .clear {
@@ -118,15 +118,24 @@ const Wrapper = styled.main`
 
 const AddJob = () => {
   const { navWidth, location } = useSelector((store) => store.user);
-  const { jobType,isLoading, status,isEditing } = useSelector((store) => store.jobs);
+  const {
+    jobType,
+    isLoading,
+    postPosition,
+    postJobType,
+    postCompany,
+    postStatus,
+    status,
+    isEditing,
+  } = useSelector((store) => store.jobs);
   const dispatch = useDispatch();
   const [width, setWidth] = useState(window.innerWidth);
   const [jobData, setJobData] = useState({
-    position: "",
-    company: "",
+    position: postPosition,
+    company: postCompany,
     jobLocation: location,
-    jobType: 'full-time',
-    status: "pending",
+    jobType: postJobType,
+    status: postStatus,
   });
 
   const handleChange = (e) => {
@@ -136,15 +145,15 @@ const AddJob = () => {
     setJobData({ ...jobData, [name]: value });
   };
 
-  const clearValues = ()=>{
+  const clearValues = () => {
     setJobData({
-    position: "",
-    company: "",
-    jobLocation: location,
-    jobType: 'full-time',
-    status: "pending",
-  })
-  }
+      position: "",
+      company: "",
+      jobLocation: location,
+      jobType: "full-time",
+      status: "pending",
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -153,8 +162,10 @@ const AddJob = () => {
       toast.error("please fill the form");
       return;
     }
-    if(isEditing){
-      // dispatch();
+    if (isEditing) {
+      dispatch(updateJob(jobData));
+      clearValues();
+
       return;
     }
     dispatch(addJobs(jobData));
@@ -163,7 +174,7 @@ const AddJob = () => {
   return (
     <Container width={`${width >= 786 ? navWidth : null}`}>
       <Wrapper>
-      <h1>{isEditing?'Edit Jobs':'Add Jobs'}</h1>
+        <h1>{isEditing ? "Edit Jobs" : "Add Jobs"}</h1>
         <form onSubmit={handleSubmit}>
           <Ball width="200px" height="200px" left="20%" />
           <div className="disable">
@@ -223,9 +234,13 @@ const AddJob = () => {
             />
             <div className="buttons">
               <button type="submit" className="btn button clickEffect sbm">
-              {isLoading ? 'Adding...': 'Add'}
+                {isLoading ? "Adding..." : "Add"}
               </button>
-              <button type="button" onClick={clearValues} className="btn button clickEffect clear">
+              <button
+                type="button"
+                onClick={clearValues}
+                className="btn button clickEffect clear"
+              >
                 Clear
               </button>
             </div>

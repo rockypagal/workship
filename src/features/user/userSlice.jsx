@@ -45,6 +45,8 @@ export const updateUser = createAsyncThunk(
   }
 );
 
+
+
 const userLocalData = getUserFromStorage();
 const userSlice = createSlice({
   name: "user",
