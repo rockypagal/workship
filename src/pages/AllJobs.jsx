@@ -317,6 +317,15 @@ const Wrapper = styled.main`
       padding-right: 0px;
       margin: 0 auto;
     }
+
+      .pagination button {
+  width: 40px;
+  }
+
+    .pagination div {
+        box-shadow: 0px 7px 15px #927fb8;
+
+  }
   }
 `;
 
