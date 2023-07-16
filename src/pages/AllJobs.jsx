@@ -183,6 +183,65 @@ const Wrapper = styled.main`
     margin-right: 10px;
   }
 
+  .pagination {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .pagination,
+  .pagination div {
+    /* border: 1px solid black; */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 20px;
+  }
+
+  .pagination div {
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(206, 206, 254, 0.6);
+    backdrop-filter: blur(20px);
+    border-radius: 6px;
+    box-shadow: 0px 0px 20px #927fb8;
+    flex-wrap: wrap;
+    border: 1px solid var(--primary-button);
+    overflow: hidden;
+  }
+
+  .pagination button {
+  transition: all ease .3s;
+  box-sizing: border-box;
+  }
+
+  .pagination button:hover {
+  
+
+    /* transform: translateY(-5px); */
+
+  }
+
+  .pageButton {
+    color: var(--secondary-button);
+    font-size: 20px;
+    font-weight: 500;
+    /* background-color: var(--primary-button); */
+    width: 50px;
+    height: 30px;
+
+    /* border-radius: 5px; */
+  }
+
+  .active {
+    color: var(--primary-button);
+    font-size: 20px;
+    font-weight: 500;
+    /* background-color: var(--primary-button); */
+    width: 50px;
+    height: 30px;
+  }
+
   @media (min-width: 1240px) {
     .jobsForm {
       padding-top: 70px;
@@ -202,8 +261,7 @@ const Wrapper = styled.main`
     }
   }
   @media (max-width: 780px) {
-
-    padding-bottom:80px;
+    padding-bottom: 50px;
 
     .jobsForm {
       grid-template-columns: 1fr;
@@ -248,14 +306,24 @@ const Wrapper = styled.main`
     .jobCard:active {
       scale: 0.98;
     }
+
+    .pagination {
+      /* border: 1px solid black; */
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 20px;
+      padding-right: 0px;
+      margin: 0 auto;
+    }
   }
 `;
 
 const AllJobs = () => {
   const { navWidth } = useSelector((store) => store.user);
-  const { jobType, isLoading,isDeleted, resJob, sort, page, status } = useSelector(
-    (store) => store.jobs
-  );
+  const { jobType, isLoading, isDeleted, resJob, sort, page, status } =
+    useSelector((store) => store.jobs);
   const dispatch = useDispatch();
   const [width, setWidth] = useState(window.innerWidth);
   const [jobData, setJobData] = useState({
@@ -264,6 +332,8 @@ const AllJobs = () => {
     jobType: "all",
     sort: "latest",
   });
+
+  const [pageActive, setPageActive] = useState(false);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -292,10 +362,14 @@ const AllJobs = () => {
     return index + 1;
   });
 
+  const handlePagination = (item) => {
+    dispatch(changePage(item));
+    setPageActive(true);
+  };
 
   useEffect(() => {
     dispatch(showJobs(jobData));
-  }, [jobData.sort, jobData.jobType, jobData.status, page,isDeleted]);
+  }, [jobData.sort, jobData.jobType, jobData.status, page, isDeleted]);
 
   return (
     <Container width={`${width >= 786 ? navWidth : null}`}>
@@ -330,14 +404,14 @@ const AllJobs = () => {
               formData={handleChange}
             />
             <SelectOption
-              options={['all',...status]}
+              options={["all", ...status]}
               title="Status"
               name="status"
               formData={handleChange}
               value={jobData.status}
             />
             <SelectOption
-              options={['all',...jobType]}
+              options={["all", ...jobType]}
               title="Job Type"
               name="jobType"
               value={jobData.jobType}
@@ -404,18 +478,22 @@ const AllJobs = () => {
                 })}
             </div>
             <div className="pagination">
-              {pages &&
-                pages.map((item, index) => {
-                  return (
-                    <button
-                      className="btn button"
-                      key={index}
-                      onClick={() => dispatch(changePage(item))}
-                    >
-                      {item}
-                    </button>
-                  );
-                })}
+              <div>
+                {pages &&
+                  pages.map((item, index) => {
+                    return (
+                      <button
+                        className={
+                          page === item ? "btn active" : "btn pageButton"
+                        }
+                        key={index}
+                        onClick={() => handlePagination(item)}
+                      >
+                        {item}
+                      </button>
+                    );
+                  })}
+              </div>
             </div>
           </div>
         )}

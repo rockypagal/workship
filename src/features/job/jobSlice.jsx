@@ -52,7 +52,6 @@ export const deleteJob = createAsyncThunk(
   async (id, thunkApi) => {
     try {
       let url = `/jobs/${id}`;
-      console.log(url);
       const res = await FetchData.delete(url)
       return res.data
     } catch (error) {
@@ -81,7 +80,6 @@ const jobSlice = createSlice({
 
   reducers: {
     changePage: (state, { payload }) => {
-      console.log(payload, "change");
       state.page = payload;
     },
 
@@ -127,6 +125,10 @@ const jobSlice = createSlice({
         state.isLoading = false;
         toast.success("Job updated successfully");
         state.isEditing = false;
+        state.postCompany = '';
+        state.postPosition = '';
+        state.postStatus = '';
+        state.postJobType = '';
       })
       .addCase(updateJob.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -137,7 +139,7 @@ const jobSlice = createSlice({
         state.isLoading = false;
         state.isDeleted = !state.isDeleted;
         toast.success('Job deleted successfully');
-      }).addCase(deleteJob.rejected,(state,payload)=>{
+      }).addCase(deleteJob.rejected,(state,{payload})=>{
         state.isLoading = false;
         toast.error(payload);
       });

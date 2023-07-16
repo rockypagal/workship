@@ -40,7 +40,6 @@ const Wrapper = styled.main`
   .jobsForm {
     width: 90%;
     margin: 0 auto;
-
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 10px;

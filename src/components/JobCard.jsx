@@ -21,7 +21,7 @@ const JobCard = ({
   status,
   jobType,
   _id,
-  handleDeleteJob,
+
 }) => {
   const dispatch = useDispatch();
   const date = moment(createdAt).format("Do MMM , YYYY");
