@@ -202,6 +202,9 @@ const Wrapper = styled.main`
     }
   }
   @media (max-width: 780px) {
+
+    padding-bottom:80px;
+
     .jobsForm {
       grid-template-columns: 1fr;
       margin-bottom: 50px;
@@ -224,7 +227,7 @@ const Wrapper = styled.main`
       grid-template-columns: 1fr;
       column-gap: 30px;
       row-gap: 30px;
-      margin-bottom: 50px;
+      /* margin-bottom: 50px; */
     }
 
     .totalJobs {

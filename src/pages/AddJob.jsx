@@ -96,6 +96,9 @@ const Wrapper = styled.main`
     }
   }
   @media (max-width: 780px) {
+
+    padding-bottom:80px;
+
     .jobsForm {
       grid-template-columns: 1fr;
       margin-bottom: 50px;
