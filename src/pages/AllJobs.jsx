@@ -280,9 +280,6 @@ const AllJobs = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { search, jobType, status, sort } = jobData;
-
-
     dispatch(showJobs(jobData));
   };
 
