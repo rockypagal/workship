@@ -282,10 +282,7 @@ const AllJobs = () => {
     e.preventDefault();
     const { search, jobType, status, sort } = jobData;
 
-    if (isEditing) {
-      // dispatch();
-      return;
-    }
+
     dispatch(showJobs(jobData));
   };
 
