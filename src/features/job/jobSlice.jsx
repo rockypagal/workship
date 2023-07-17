@@ -91,6 +91,7 @@ const jobSlice = createSlice({
     jobPending: "",
     jobInterview: "",
     jobDeclined: "",
+    monthlyData:''
   },
 
   reducers: {
@@ -170,6 +171,8 @@ const jobSlice = createSlice({
         state.jobPending = pending;
         state.jobDeclined = declined;
         state.jobInterview = interview;
+        // console.log(payload);
+        state.monthlyData = payload.monthlyApplications
       });
   },
 });

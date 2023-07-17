@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { getJobStats } from "../features/job/jobSlice";
+import { AreaCharts } from "../components";
 
 const Container = styled.nav`
   width: ${({ width }) => `${width}px`};
@@ -33,7 +34,8 @@ const Container = styled.nav`
 `;
 
 const Wrapper = styled.main`
-  .statsCards,.charts {
+  .statsCards,
+  .charts {
     width: 90%;
     /* border: 1px solid black; */
     margin: 0 auto;
@@ -59,63 +61,64 @@ const Wrapper = styled.main`
     box-shadow: 0px 0px 20px #927fb8;
   }
 
-.charts{
-  margin-top: 50px;
-}
-  
-@media screen and (min-width:1536px) {
-    .container {
-        max-width: 1280px;
-    }
-}
-
-@media screen and (max-width:1280px) {
-    .container {
-        max-width: 1024px;
-    }
-}
-
-@media screen and (max-width:1024px) {
-    .container {
-        max-width: 768px;
-    }
-}
-
-@media screen and (max-width:768px) {
-    .container {
-        max-width: 640px;
-    }
-
-  .card {
-
-    grid-template-columns: 1fr;
-
+  .charts {
+    margin-top: 50px;
   }
 
-
-}
-
-@media screen and (max-width:640px) {
+  @media screen and (min-width: 1536px) {
     .container {
-        max-width: 475px;
+      max-width: 1280px;
     }
-}
+  }
 
-@media screen and (max-width:475px) {
+  @media screen and (max-width: 1280px) {
     .container {
-        width: 100%;
+      max-width: 1024px;
     }
-}
+  }
+
+  @media screen and (max-width: 1024px) {
+    .container {
+      max-width: 768px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .container {
+      max-width: 640px;
+    }
+
+    .card {
+      grid-template-columns: 1fr;
+    }
+
+    padding-bottom: 60px;
+  }
+
+  @media screen and (max-width: 640px) {
+    .container {
+      max-width: 475px;
+    }
+  }
+
+  @media screen and (max-width: 475px) {
+    .container {
+      width: 100%;
+    }
+  }
 `;
 
 const Stats = () => {
   const { navWidth } = useSelector((store) => store.user);
   const [width, setWidth] = useState(window.innerWidth);
   const dispatch = useDispatch();
-  const { jobInterview,jobDeclined,jobPending } = useSelector((store) => store.jobs);
+  const { jobInterview, jobDeclined, jobPending,monthlyData } = useSelector(
+    (store) => store.jobs
+  );
   useEffect(() => {
     dispatch(getJobStats());
   }, []);
+  console.log(monthlyData);
   return (
     <Container width={`${width >= 786 ? navWidth : null}`}>
       <Wrapper>
@@ -134,8 +137,11 @@ const Stats = () => {
           </div>
         </div>
 
+        <h1>Area Chart</h1>
         <div className="charts">
-<p>hello</p>
+
+<AreaCharts data={monthlyData}/>
+
         </div>
       </Wrapper>
     </Container>

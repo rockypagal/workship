@@ -5,5 +5,6 @@ import Navbar from './Navbar'
 import FormInput from "./FormInput";
 import SelectOption from "./SelectOption";
 import JobCard from "./JobCard";
+import AreaCharts from "./AreaCharts";
 
-export {SelectOption,FormInput,MagicBtn, Sidebar, SmallSidebar, Navbar,JobCard} 
+export {AreaCharts,SelectOption,FormInput,MagicBtn, Sidebar, SmallSidebar, Navbar,JobCard} 
