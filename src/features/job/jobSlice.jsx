@@ -52,10 +52,22 @@ export const deleteJob = createAsyncThunk(
   async (id, thunkApi) => {
     try {
       let url = `/jobs/${id}`;
-      const res = await FetchData.delete(url)
-      return res.data
+      const res = await FetchData.delete(url);
+      return res.data;
     } catch (error) {
-      return thunkApi.rejectWithValue(error.response.data.msg)
+      return thunkApi.rejectWithValue(error.response.data.msg);
+    }
+  }
+);
+
+export const getJobStats = createAsyncThunk(
+  "get/JobStats",
+  async (_, thunkApi) => {
+    try {
+      const res = await FetchData("/jobs/stats");
+      return res.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.response.data.msg);
     }
   }
 );
@@ -65,8 +77,8 @@ const jobSlice = createSlice({
   initialState: {
     isLoading: false,
     isEditing: false,
-    status: [ "pending", "interview", "declined"],
-    jobType: [ "full-time", "part-time", "remote", "internship"],
+    status: ["pending", "interview", "declined"],
+    jobType: ["full-time", "part-time", "remote", "internship"],
     sort: ["latest", "oldest", "a-z", "z-a"],
     page: 1,
     resJob: "",
@@ -76,6 +88,9 @@ const jobSlice = createSlice({
     postStatus: "pending",
     postJobType: "full-time",
     isDeleted: false,
+    jobPending: "",
+    jobInterview: "",
+    jobDeclined: "",
   },
 
   reducers: {
@@ -125,23 +140,36 @@ const jobSlice = createSlice({
         state.isLoading = false;
         toast.success("Job updated successfully");
         state.isEditing = false;
-        state.postCompany = '';
-        state.postPosition = '';
-        state.postStatus = '';
-        state.postJobType = '';
+        state.postCompany = "";
+        state.postPosition = "";
+        state.postStatus = "";
+        state.postJobType = "";
       })
       .addCase(updateJob.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);
-      }).addCase(deleteJob.pending, (state, { payload }) => {
+      })
+      .addCase(deleteJob.pending, (state, { payload }) => {
         state.isLoading = true;
-      }).addCase(deleteJob.fulfilled, (state, { payload})=>{
+      })
+      .addCase(deleteJob.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isDeleted = !state.isDeleted;
-        toast.success('Job deleted successfully');
-      }).addCase(deleteJob.rejected,(state,{payload})=>{
+        toast.success("Job deleted successfully");
+      })
+      .addCase(deleteJob.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);
+      })
+      .addCase(getJobStats.pending, (state, { payload }) => {
+        state.isLoading = true;
+      })
+      .addCase(getJobStats.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        const {declined,pending,interview} = payload.defaultStats
+        state.jobPending = pending;
+        state.jobDeclined = declined;
+        state.jobInterview = interview;
       });
   },
 });
