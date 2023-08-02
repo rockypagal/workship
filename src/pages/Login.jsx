@@ -37,8 +37,8 @@ const Wrapper = styled.main`
     border-left: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     background: white; */
-    background-color: rgba(206, 206, 254, 0.6);
-    backdrop-filter: blur(20px);
+    background-color: rgba(206, 206, 254, 0.7);
+    backdrop-filter: blur(15px);
     border-radius: 6px;
     width: 400px;
     padding: 40px 30px;
