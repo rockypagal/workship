@@ -33,12 +33,15 @@ const Wrapper = styled.main`
     backdrop-filter:blur(5px)
   } */
   .login__form {
-    border-top: 2px solid rgba(255, 255, 255, 0.1);
+    /* border-top: 2px solid rgba(255, 255, 255, 0.1);
     border-left: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
+    background: white; */
+    background-color: rgba(206, 206, 254, 0.6);
+    backdrop-filter: blur(20px);
+    border-radius: 6px;
     width: 400px;
     padding: 40px 30px;
-    background: white;
     box-sizing: border-box;
     box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
     position: relative;
@@ -200,18 +203,19 @@ const Login = () => {
       <Ball
         width="400px"
         height="400px"
-        top="600px"
+        top="500px"
         right="500px"
-        direction="top"
+        direction="bottom"
       />
       <Ball
         width="300px"
         height="300px"
-        direction="bottom"
+        direction="left"
         top="100px"
         right="900px"
+    
       />
-      <div className="blur"></div>
+      {/* <div className="blur"></div> */}
       <Wrapper>
         <div className="Wrapper">
           <div className="login__form">
