@@ -120,11 +120,11 @@ const Wrapper = styled.main`
       margin: auto;
       display: block;
       margin-top: 10px;
-      transition: all .2s;
+      transition: all 0.2s;
     }
     .from-btn:active {
-      background-color:var(--secondary-button);
-  scale: .9;
+      background-color: var(--secondary-button);
+      scale: 0.9;
     }
   }
 
@@ -146,13 +146,17 @@ const Wrapper = styled.main`
     }
 
     .login__form {
-      width:90%;
-      margin:0px auto;
+      border-top: 2px solid rgba(255, 255, 255, 0.1);
+      border-left: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      background: white;
+      width: 90%;
+      margin: 0px auto;
     }
 
-  .size{
-    font-size: 14px;
-  }
+    .size {
+      font-size: 14px;
+    }
   }
 `;
 
@@ -213,7 +217,6 @@ const Login = () => {
         direction="left"
         top="100px"
         right="900px"
-    
       />
       {/* <div className="blur"></div> */}
       <Wrapper>
@@ -258,7 +261,9 @@ const Login = () => {
                 {isLoading ? "Loading..." : "Submit"}
               </button>
               <div className="confirm__text">
-                <p className="size">{isMember ? "Not a member yet?" : "Already a member?"}</p>
+                <p className="size">
+                  {isMember ? "Not a member yet?" : "Already a member?"}
+                </p>
                 <button
                   type="button"
                   className="btn size"
