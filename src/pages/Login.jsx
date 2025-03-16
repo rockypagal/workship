@@ -117,11 +117,11 @@ const Wrapper = styled.main`
       margin: auto;
       display: block;
       margin-top: 10px;
-      transition: all .2s;
+      transition: all 0.2s;
     }
     .from-btn:active {
-      background-color:var(--secondary-button);
-  scale: .9;
+      background-color: var(--secondary-button);
+      scale: 0.9;
     }
   }
 
@@ -143,13 +143,13 @@ const Wrapper = styled.main`
     }
 
     .login__form {
-      width:90%;
-      margin:0px auto;
+      width: 90%;
+      margin: 0px auto;
     }
 
-  .size{
-    font-size: 14px;
-  }
+    .size {
+      font-size: 14px;
+    }
   }
 `;
 
@@ -166,6 +166,7 @@ const Login = () => {
     (store) => store.user
   );
   const dispatch = useDispatch();
+  console.log('isLoading: ', isLoading);
 
   useEffect(() => {
     if (isUser) {
@@ -254,7 +255,9 @@ const Login = () => {
                 {isLoading ? "Loading..." : "Submit"}
               </button>
               <div className="confirm__text">
-                <p className="size">{isMember ? "Not a member yet?" : "Already a member?"}</p>
+                <p className="size">
+                  {isMember ? "Not a member yet?" : "Already a member?"}
+                </p>
                 <button
                   type="button"
                   className="btn size"

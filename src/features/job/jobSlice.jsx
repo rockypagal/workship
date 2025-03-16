@@ -6,11 +6,10 @@ export const addJobs = createAsyncThunk(
   "add/job",
   async (formData, thunkApi) => {
     try {
-      const res = await FetchData.post("/jobs", formData);
+      const res = await FetchData.post("/job/add-job", formData);
       return res.data;
     } catch (error) {
-      console.log(error);
-      return thunkApi.rejectWithValue(err.response.data.msg);
+      return thunkApi.rejectWithValue(error.response.data.msg);
     }
   }
 );
@@ -19,13 +18,15 @@ export const showJobs = createAsyncThunk(
   "show/jobs",
   async (formData, thunkApi) => {
     const { page } = thunkApi.getState().jobs;
+    console.log("page: ", page);
+
     const { search, sort, jobType, status } = formData;
-    let url = `/jobs?sort=${sort}&jobType=${jobType}&status=${status}&page=${page}`;
-    if (search) {
-      url = url + `&search=${search}`;
-    }
+    let url = `/job/get-jobs?sort=${sort}&jobType=${jobType}&status=${status}&page=${page}`;
+    // if (search) {
+    //   url = url + `&search=${search}&page=${page}`;
+    // }
     try {
-      const res = await FetchData.get(url);
+      const res = await FetchData.post("/job/get-jobs", { ...formData, page });
       return res.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data.msg);
@@ -38,8 +39,8 @@ export const updateJob = createAsyncThunk(
   async (jobInfo, thunkApi) => {
     try {
       const { jobId } = thunkApi.getState().jobs;
-      let url = `/jobs/${jobId}`;
-      const res = await FetchData.patch(url, jobInfo);
+      let url = `/job/update-job`;
+      const res = await FetchData.patch(url, { ...jobInfo, jobId });
       return res.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data.msg);
@@ -51,7 +52,7 @@ export const deleteJob = createAsyncThunk(
   "delete/Job",
   async (id, thunkApi) => {
     try {
-      let url = `/jobs/${id}`;
+      let url = `/job/delete-job/?id=${id}`;
       const res = await FetchData.delete(url);
       return res.data;
     } catch (error) {
@@ -91,7 +92,7 @@ const jobSlice = createSlice({
     jobPending: "",
     jobInterview: "",
     jobDeclined: "",
-    monthlyData:''
+    monthlyData: "",
   },
 
   reducers: {
@@ -107,6 +108,9 @@ const jobSlice = createSlice({
       state.postCompany = company;
       state.postJobType = jobType;
       state.postStatus = status;
+    },
+    handleLogout: (state) => {
+      state.resJob = {};
     },
   },
 
@@ -128,10 +132,11 @@ const jobSlice = createSlice({
       })
       .addCase(showJobs.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.resJob = payload;
+        state.resJob = payload?.data;
       })
       .addCase(showJobs.rejected, (state, { payload }) => {
         state.isLoading = false;
+        state.resJob = {};
         toast.error(payload);
       })
       .addCase(updateJob.pending, (state) => {
@@ -167,16 +172,16 @@ const jobSlice = createSlice({
       })
       .addCase(getJobStats.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        const {declined,pending,interview} = payload.defaultStats
+        const { declined, pending, interview } = payload.defaultStats;
         state.jobPending = pending;
         state.jobDeclined = declined;
         state.jobInterview = interview;
-        // console.log(payload);
-        state.monthlyData = payload.monthlyApplications
+        //
+        state.monthlyData = payload.monthlyApplications;
       });
   },
 });
 
-export const { changePage, changeEditing } = jobSlice.actions;
+export const { changePage, changeEditing, handleLogout } = jobSlice.actions;
 
 export default jobSlice.reducer;

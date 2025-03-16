@@ -10,9 +10,11 @@ import { toast } from "react-toastify";
 export const RegisterUser = createAsyncThunk(
   "register/user",
   async (formInfo, thunkApi) => {
+    console.log("formInfo: ", formInfo);
     try {
       const res = await FetchData.post("/auth/register", formInfo);
-      const data = res.data.user;
+      console.log("res: ", res);
+      const data = res.data.data;
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data.msg);
@@ -25,7 +27,8 @@ export const loginUser = createAsyncThunk(
   async (formData, thunkApi) => {
     try {
       const res = await FetchData.post("/auth/login", formData);
-      const data = res.data.user;
+      console.log("res: ", res);
+      const data = res.data.data;
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data.msg);
@@ -37,15 +40,14 @@ export const updateUser = createAsyncThunk(
   "update/User",
   async (formData, thunkApi) => {
     try {
-      const res = await FetchData.patch("/auth/updateUser", formData);
+      const res = await FetchData.patch("/user/update-user", formData);
+      console.log('res: ', res);
       return res.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data.msg);
     }
   }
 );
-
-
 
 const userLocalData = getUserFromStorage();
 const userSlice = createSlice({
@@ -79,7 +81,7 @@ const userSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(RegisterUser.fulfilled, (state, { payload }) => {
-        console.log(payload, "fulfilled");
+        console.log("payload: ", payload);
         state.isLoading = false;
         setUserInStorage(payload);
         state.isUser = true;
@@ -117,15 +119,15 @@ const userSlice = createSlice({
       })
       .addCase(updateUser.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        let {user} = payload
+        let { user } = payload;
         setUserInStorage(user);
         state.name = user.name;
         state.email = user.email;
         state.lastName = user.lastName;
-        state.token = user.token;
         state.location = user.location;
-        toast.success('User updated successfully')
-      }).addCase(updateUser.rejected, (state,{payload}) => {
+        toast.success("User updated successfully");
+      })
+      .addCase(updateUser.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);
       });

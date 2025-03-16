@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { changePage, deleteJob, showJobs } from "../features/job/jobSlice";
 import { JobCard } from "../components";
 import Loading from "../utils/Loading/Loading";
+import DropDownBox from "ru-react-dropdown-component";
 
 const Container = styled.nav`
   width: ${({ width }) => `${width}px`};
@@ -211,15 +212,12 @@ const Wrapper = styled.main`
   }
 
   .pagination button {
-  transition: all ease .3s;
-  box-sizing: border-box;
+    transition: all ease 0.3s;
+    box-sizing: border-box;
   }
 
   .pagination button:hover {
-  
-
     /* transform: translateY(-5px); */
-
   }
 
   .pageButton {
@@ -318,14 +316,18 @@ const Wrapper = styled.main`
       margin: 0 auto;
     }
 
-      .pagination button {
-  width: 40px;
-  }
+    .pagination button {
+      width: 40px;
+    }
 
     .pagination div {
-        box-shadow: 0px 7px 15px #927fb8;
-
-  }
+      box-shadow: 0px 7px 15px #927fb8;
+    }
+    .newSelectInput {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
   }
 `;
 
@@ -335,11 +337,12 @@ const AllJobs = () => {
     useSelector((store) => store.jobs);
   const dispatch = useDispatch();
   const [width, setWidth] = useState(window.innerWidth);
+
   const [jobData, setJobData] = useState({
     search: "",
-    status: "all",
-    jobType: "all",
-    sort: "latest",
+    status: "",
+    jobType: "",
+    sort: "",
   });
 
   const [pageActive, setPageActive] = useState(false);
@@ -352,11 +355,14 @@ const AllJobs = () => {
   };
 
   const clearValues = () => {
+    if (search && !jobData?.jobType && !jobData?.status && !jobData?.sort) {
+      dispatch(showJobs({ ...jobData, search: "" }));
+    }
     setJobData({
       search: "",
-      jobType: "all",
-      status: "all",
-      sort: "latest",
+      jobType: "",
+      status: "",
+      sort: "",
     });
   };
 
@@ -374,6 +380,10 @@ const AllJobs = () => {
   const handlePagination = (item) => {
     dispatch(changePage(item));
     setPageActive(true);
+    document.documentElement.scrollTo({
+      top: 500,
+      behavior: "smooth",
+    });
   };
 
   useEffect(() => {
@@ -408,18 +418,68 @@ const AllJobs = () => {
             <FormInput
               name="search"
               value={jobData.search}
-              title="Search"
+              title="Company"
               type="text"
               formData={handleChange}
             />
-            <SelectOption
-              options={["all", ...status]}
-              title="Status"
-              name="status"
-              formData={handleChange}
-              value={jobData.status}
-            />
-            <SelectOption
+            <div
+              style={{
+                display: "flex",
+                flexDirection: " column",
+                gap: "7px",
+                marginBottom: "15px",
+              }}
+            >
+              <DropDownBox
+                options={status?.map((item) => ({ label: item, value: item }))}
+                title="Status"
+                placeholder="Select Status"
+                onSelect={(value) => {
+                  setJobData({ ...jobData, ["status"]: value });
+                }}
+                loading={isLoading}
+                resetButton={true}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: " column",
+                gap: "7px",
+                marginBottom: "15px",
+              }}
+            >
+              <DropDownBox
+                options={jobType?.map((item) => ({ label: item, value: item }))}
+                title="Job Type"
+                resetButton={true}
+                placeholder="Select Status"
+                onSelect={(value) => {
+                  setJobData({ ...jobData, ["jobType"]: value });
+                }}
+                loading={isLoading}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: " column",
+                gap: "7px",
+                marginBottom: "15px",
+              }}
+            >
+              <DropDownBox
+                options={sort?.map((item) => ({ label: item, value: item }))}
+                title="Sort Jobs"
+                resetButton={true}
+                placeholder="Select Status"
+                onSelect={(value) => {
+                  setJobData({ ...jobData, ["sort"]: value });
+                }}
+                loading={isLoading}
+              />
+            </div>
+            {/* <SelectOption
               options={["all", ...jobType]}
               title="Job Type"
               name="jobType"
@@ -432,7 +492,7 @@ const AllJobs = () => {
               name="sort"
               formData={handleChange}
               value={jobData.sort}
-            />
+            /> */}
             <div className="buttons">
               <button type="submit" className="btn button clickEffect sbm">
                 {isLoading ? "Searching..." : "Search"}
@@ -469,7 +529,7 @@ const AllJobs = () => {
                     position,
                     status,
                     jobType,
-                    jobLocation,
+                    location: jobLocation,
                   } = item;
 
                   return (

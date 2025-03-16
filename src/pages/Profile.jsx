@@ -128,7 +128,9 @@ const Profile = () => {
     location,
   });
 
-  const { navWidth,isLoading } = useSelector((store) => store.user);
+  const { navWidth,isLoading,token } = useSelector((store) => store.user);
+  console.log('token: ', token);
+  console.log('isLoading: ', isLoading);
   const dispatch = useDispatch();
   const [width, setWidth] = useState(window.innerWidth);
 

@@ -12,6 +12,7 @@ import { CgMenu } from "react-icons/cg";
 import { FiUser } from "react-icons/fi";
 import { BsCaretDown } from "react-icons/bs";
 import { motion } from "framer-motion";
+import { handleLogout } from "../features/job/jobSlice";
 
 const Wrapper = styled.main`
   /* box-shadow:0px 0px 50px #8084b8; */
@@ -77,7 +78,6 @@ const Wrapper = styled.main`
     z-index: -2;
   }
 
-
   @media (max-width: 768px) {
     .menu {
       display: none;
@@ -119,8 +119,6 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    
-
     window.addEventListener("resize", checkSize);
     return () => {
       window.removeEventListener("resize", checkSize);
@@ -131,11 +129,11 @@ const Navbar = () => {
     dispatch(changeNavSize(width));
   }, [width]);
 
-  useEffect(()=>{
-if(width < 1180){
-  menuBar()
-}
-  },[])
+  useEffect(() => {
+    if (width < 1180) {
+      menuBar();
+    }
+  }, []);
 
   return (
     <Nav width={`${width >= 786 ? navWidth : null}`}>
@@ -158,24 +156,27 @@ if(width < 1180){
 
           <motion.button
             animate={{
-              right: showLogout? 30: -200,
-              top:showLogout? 85: 85,
-              opacity: showLogout? 1:0
+              right: showLogout ? 30 : -200,
+              top: showLogout ? 85 : 85,
+              opacity: showLogout ? 1 : 0,
             }}
             initial={{
-              top:-200,
+              top: -200,
               right: 50,
               opacity: 0,
             }}
             transition={{
-              type:'spring',
-              stiffness:130
+              type: "spring",
+              stiffness: 130,
             }}
             whileTap={{
-              scale:.9
+              scale: 0.9,
             }}
             className=" btn logoutBtn  "
-            onClick={() => dispatch(logOut())}
+            onClick={() => {
+              dispatch(handleLogout());
+              dispatch(logOut());
+            }}
           >
             Logout
           </motion.button>

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { SelectOption } from "../components";
 import Ball from "../utils/Balls";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.nav`
   width: ${({ width }) => `${width}px`};
@@ -95,8 +96,7 @@ const Wrapper = styled.main`
     }
   }
   @media (max-width: 780px) {
-
-    padding-bottom:80px;
+    padding-bottom: 80px;
 
     .jobsForm {
       grid-template-columns: 1fr;
@@ -130,7 +130,11 @@ const AddJob = () => {
     status,
     isEditing,
   } = useSelector((store) => store.jobs);
+  const { _id } = useSelector((store) => store.user);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [width, setWidth] = useState(window.innerWidth);
   const [jobData, setJobData] = useState({
     position: postPosition,
@@ -138,6 +142,7 @@ const AddJob = () => {
     jobLocation: location,
     jobType: postJobType,
     status: postStatus,
+    date: "",
   });
 
   const handleChange = (e) => {
@@ -154,23 +159,28 @@ const AddJob = () => {
       jobLocation: location,
       jobType: "full-time",
       status: "pending",
+      reset: true,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const { position, company, jobLocation, status, jobType } = jobData;
-    if (!position || !company || !location || !status || !jobType) {
+    if (!position || !company || !jobLocation || !status || !jobType) {
       toast.error("please fill the form");
       return;
     }
     if (isEditing) {
-      dispatch(updateJob(jobData));
+      dispatch(
+        updateJob({ ...jobData, userId: _id, location: jobData.jobLocation })
+      );
       clearValues();
-
+      navigate("/all-jobs");
       return;
     }
-    dispatch(addJobs(jobData));
+    dispatch(
+      addJobs({ ...jobData, userId: _id, location: jobData.jobLocation })
+    );
     clearValues();
   };
   return (
@@ -217,6 +227,13 @@ const AddJob = () => {
               value={jobData.jobLocation}
               title="Job Location"
               type="text"
+              formData={handleChange}
+            />
+            <FormInput
+              name="date"
+              value={jobData.date}
+              title="Applying Date"
+              type="date"
               formData={handleChange}
             />
 
