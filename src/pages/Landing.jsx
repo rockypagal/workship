@@ -9,8 +9,7 @@ import { Link } from "react-router-dom";
 // import Wrapper from '../utils/Wrapper'
 
 const Wrapper = styled.main`
-  width: 100vw;
-  height: 100vh;
+
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
@@ -150,6 +149,7 @@ const Wrapper = styled.main`
     .landing__content-left {
       gap: 30px;
     }
+
 
     .landing__content-left h1 {
       font-size: 2.5rem;

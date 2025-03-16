@@ -50,7 +50,6 @@ const Wrapper = styled.main`
 
   .card div {
     border: 1px solid var(--primary-button);
-    height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
